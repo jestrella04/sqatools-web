@@ -1,0 +1,26 @@
+{
+	"param": {
+		"env": [
+			"dev",
+			"staging",
+			"prod"
+		],
+		"style": [
+			"classic",
+			"modern",
+			"simple"
+		],
+		"recaptcha": [
+			"true",
+			"false"
+		],
+		"submit": [
+			"true",
+			"false"
+		],
+		"cvv": [
+			"true",
+			"false"
+		]
+	}
+}

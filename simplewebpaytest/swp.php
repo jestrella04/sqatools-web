@@ -1,0 +1,161 @@
+<?php
+// Force HTTPS for security
+if ($_SERVER["HTTPS"] != "on") {
+	$pageURL = "Location: https://";
+
+	if ($_SERVER["SERVER_PORT"] != "80") {
+		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+	} else {
+		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+	}
+
+	header($pageURL);
+}
+
+// Default settings
+$verify = false;
+$checks = false;
+$token19 = false;
+$response = false;
+$webpay_path = null;
+$testcase = null;
+$recaptcha = true;
+$object = false;
+$plugin = "//www.cenpos.com/Plugins/jquery.simplewebpay.js";
+
+// Get data structure from URL
+$path = trim($_SERVER["PATH_INFO"], '/');
+
+// Extract desired parts from $path
+$path_parts = explode('/', $path);
+
+// Normalize variables for easy reference
+$environment = $path_parts[0];
+$extraOptions = $path_parts[1];
+$testcase = $path_parts[2];
+
+// Get additional options
+$extraOptions = explode('+', $extraOptions);
+
+// Enable the checks flag
+if (in_array('ach', $extraOptions)) {
+	$checks = true;
+}
+
+// Enable the verify flag
+if (in_array('verify', $extraOptions)) {
+	$verify = true;
+}
+
+// Enable the token19 flag
+if (in_array('token19', $extraOptions)) {
+	$token19 = true;
+}
+
+// Disable Recaptcha
+if (in_array('norecaptcha', $extraOptions)) {
+	$recaptcha = false;
+}
+
+// Check for Object flag
+if (in_array('object', $extraOptions)) {
+	$object = true;
+	$plugin = "//www.cenpos.com/Plugins/jquery.simplewebpay.object.js";
+}
+
+// Set webpay path
+if ('staging' == $environment) {
+	if (!$checks) {
+		$webpay_path = 'https://www4.cenpos.net/simplewebpay-test/cards/';
+	} else {
+		$webpay_path = 'https://www4.cenpos.net/simplewebpay-test/checks/';
+	}
+} else if ('miami3' == $environment) {
+	if (!$checks) {
+		$webpay_path = 'https://www4.cenpos.net/simplewebpay/cards/';
+	} else {
+		$webpay_path = 'https://www4.cenpos.net/simplewebpay/checks/';
+	}
+}
+
+if ($verify) {
+	// Enhanced SWP security
+	$merchantId = urlencode("xO82MBB9FrcukKhFjkS+oWMfNKRybtYZmXd/vNt/QoA=");
+	$privatekey = "ece2b8261cef7f01123265c0ceee9254";
+	$ip = $_SERVER["REMOTE_ADDR"];
+	$email = "cenposqatest@gmail.com";
+	$postUrl = $webpay_path . "?app=genericcontroller&action=siteVerify";
+	$postParams = "secretkey=$privatekey&merchant=$merchantId&email=$email&ip=$ip";
+	
+	if ($token19) $postParams = $postParams . '&type=createtoken19';
+	if (!$recaptcha) $postParams = $postParams . '&isrecaptcha=false';
+	
+	// Initialize cURL
+	$ch = curl_init($postUrl);
+
+	// Set cURL options
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postParams);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	// Get Response from the external server
+	$response = curl_exec($ch);
+	$error = curl_error($ch);
+
+	// Close the cURL connection
+	curl_close($ch);
+
+	// For debugging purposes only, get the error returned by the external server (if any)
+	if ($error) {
+		exit($error);
+	}
+
+	// Get the JSON encoded response data
+	$response = json_decode($response);
+
+	//var_dump($response->Data); die();
+	// Check if the result is valid
+	if (0 != $response->Result) {
+		exit($response->Message);
+	}
+}
+
+// Validate file exists
+if (!file_exists('html/' . $testcase)) {
+	$testcase = null;
+}
+
+// If everything is valid, let's print the HTML page
+if (!is_null($webpay_path) && !is_null($testcase)) {
+	?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Simple Webpay Test</title>
+		<style type="text/css">
+			iframe{border:0;}
+			.swp-btn{padding:1em;font-weight:700;color:white;border:1px solid whiteSmoke;border-radius:5px;cursor:pointer;}
+			#submit{background:#0d47a1;}
+			#submit:hover{background:#4285F4;}
+			#cancel{background:#CC0000;}
+			#cancel:hover{background:#ff4444;}
+		</style>
+		<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="//www.cenpos.com/Plugins/porthole.min.js"></script>
+		<script type="text/javascript" src="<?= $plugin ?>"></script>
+		<?php include('html/' . $testcase) ?>
+	</head>
+
+	<body>
+		<div id="NewCenposPlugin"></div>
+		<button id="submit" class="swp-btn" type="button">SUBMIT</button>
+		<button id="cancel" class="swp-btn" type="button" title="Not implemented">CANCEL</button>
+	</body>
+</html>
+<?php
+
+} else {
+	echo '<h1>Oops, something went wrong! You broke it!</h1>';
+}

@@ -1,0 +1,67 @@
+{
+	"report": {
+		"desc": "",
+		"transaction": [
+			"reprint",
+			"batchreport",
+			"cashsummary",
+			"checksummary",
+			"ebppinvoice",
+			"transactions"
+		]
+	},
+	"cashiering": {
+		"desc": "",
+		"transaction": [
+			"sale",
+			"auth",
+			"cashoperations",
+			"credit",
+			"depositslip",
+			"return"
+		]
+	},
+	"pos": {
+		"desc": "",
+		"transaction": [
+			"sale",
+			"achcredit",
+			"achdebit",
+			"activate",
+			"auth",
+			"createtoken",
+			"credit",
+			"ebppinvoice",
+			"force",
+			"guarantee",
+			"inquire",
+			"moto",
+			"reauth",
+			"recurringauth",
+			"recurringcredit",
+			"recurringsale",
+			"reload",
+			"repeatauth",
+			"repeatsale",
+			"return",
+			"reversal",
+			"salemoto",
+			"signature",
+			"tokencheck",
+			"usechecktoken",
+			"voiceauth",
+			"void"
+		]
+	},
+	"webpay": {
+		"desc": "",
+		"transaction": [
+			"sale",
+			"sale19",
+			"auth",
+			"auth19",
+			"createtoken",
+			"createtoken19"
+		]
+	}
+}

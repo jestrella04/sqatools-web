@@ -1,0 +1,74 @@
+{
+	"POS HTML5": {
+		"desc": "",
+		"type": "pos",
+		"url": {
+			"Production": "https://www4.cenpos.net/POSIntegration/POSIntegration-HTML5/",
+			"Staging": "https://www4.cenpos.net/POSIntegration-test/POSIntegration-HTML5/",
+			"Temp": "https://www.cenpos.net/posintegration-test/POS-HTML5Temp/",
+			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/pos-integration-ws/"
+		}
+	},
+	"Cashiering HTML5": {
+		"desc": "",
+		"type": "cashiering",
+		"url": {
+			"Production": "https://www4.cenpos.net/cashiering-html5/",
+			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/cashiering/"
+		}
+	},
+	"POS Reports HTML5": {
+		"desc": "",
+		"type": "report",
+		"url": {
+			"Production": "https://www4.cenpos.net/posintegration/posintegration-html5-reports/",
+			"Staging": "https://www4.cenpos.net/posintegration-test/posintegration-html5-reports/",
+			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/pos-reports/"
+		}
+	},
+	"POS Flex": {
+		"desc": "",
+		"type": "pos",
+		"url": {
+			"Production": "https://www4.cenpos.net/posintegration/posintegration/",
+			"Staging": "https://www4.cenpos.net/posintegration-test/posintegration/",
+			"Dev": "https://test.cenpos.net:7443/Apps/testABI/V6/EMV/POSintegration/"
+		}
+	},
+	"Infor Flex": {
+		"desc": "",
+		"type": "pos",
+		"url": {
+			"Production": "https://www4.cenpos.net/posintegration/inforintegration/",
+			"Staging": "https://www4.cenpos.net/posintegration-test/inforintegration/",
+			"Dev": "https://test.cenpos.net:7443/Apps/testABI/V6/EMV/inforintegration/"
+		}
+	},
+	"Cashiering Flex": {
+		"desc": "",
+		"type": "cashiering",
+		"url": {
+			"Production": "https://www4.cenpos.net/cashiering/",
+			"Staging": "https://www4.cenpos.net/cashiering-test/",
+			"Dev": "https://test.cenpos.net:7443/Apps/testABI/V6/EMV/Cashiering/"
+		}
+	},
+	"POS Reports Flex": {
+		"desc": "",
+		"type": "report",
+		"url": {
+			"Production": "https://www4.cenpos.net/POSIntegration/POSIntegration-reports/",
+			"Staging": "https://www4.cenpos.net/POSIntegration-test/POSIntegration-reports/",
+			"Dev": "https://test.cenpos.net:7443/Apps/testABI/V6/EMV/POSIntegration-reports/"
+		}
+	},
+	"Webpay": {
+		"desc": "",
+		"type": "webpay",
+		"url": {
+			"Production": "https://www4.cenpos.net/webpay/v7/html5/",
+			"Staging": "https://www4.cenpos.net/Webpaytest/v7/html5/",
+			"Dev": "https://test.cenpos.net:7443/webpaypasswordless/"
+		}
+	}
+}
