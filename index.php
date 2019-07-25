@@ -182,6 +182,7 @@ if ($_SERVER["HTTPS"] != "on") {
 					<div class="list-group list-group-flush qa-item-group">
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/vt-html5/">VT (Mia3)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/">VT (Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt-vue/">VT - Vue (Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/Lodging">VT - Lodging (Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/CarRental">VT - Car Rental (Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/Restaurant">VT - Restaurant (Dev)</a>					

@@ -6,7 +6,8 @@
 			"Production": "https://www4.cenpos.net/POSIntegration/POSIntegration-HTML5/",
 			"Staging": "https://www4.cenpos.net/POSIntegration-test/POSIntegration-HTML5/",
 			"Temp": "https://www.cenpos.net/posintegration-test/POS-HTML5Temp/",
-			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/pos-integration-ws/"
+			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/pos-integration-ws/",
+			"Dev (Vue)": "https://test.cenpos.net:7443/html5-apps/dev/spa-apps/pos/"
 		}
 	},
 	"Cashiering HTML5": {
