@@ -1,17 +1,3 @@
-<?php
-// Force HTTPS for added security
-if ($_SERVER["HTTPS"] != "on") {
-	$pageURL = "Location: https://";
-
-	if ($_SERVER["SERVER_PORT"] != "80") {
-		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-	} else {
-		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-	}
-
-	header($pageURL);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -181,8 +167,8 @@ if ($_SERVER["HTTPS"] != "on") {
 
 					<div class="list-group list-group-flush qa-item-group">
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/vt-html5/">VT (Mia3)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/">VT (Dev)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt-vue/">VT - Vue (Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt-vue/">VT (Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/">VT - Legacy(Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/Lodging">VT - Lodging (Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/CarRental">VT - Car Rental (Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/html5-apps/dev/vt/Restaurant">VT - Restaurant (Dev)</a>					
@@ -223,7 +209,7 @@ if ($_SERVER["HTTPS"] != "on") {
 	<div class="container" id="footer">
 		<hr>
 		<p class="text-muted text-center">
-			&copy; <?= date('Y') ?> CenPOS, Inc.<br>
+			&copy; <span id="current-year"></span> CenPOS, Inc.<br>
 			All rights reserved
 		</p>
 	</div>
@@ -232,6 +218,17 @@ if ($_SERVER["HTTPS"] != "on") {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+		if (window.location.protocol == 'http:') {
+        	var currentUrl = window.location.href.substr(5);
+			var secureUrl  = 'https:' + currentUrl;
+
+			window.location.replace(secureUrl);
+    	}
+
+		var currentYear = new Date().getFullYear();
+
+		$('#current-year').html(currentYear);
+
 		$('#global-filter-clear').on('click', function () {
 			$('#global-filter-input').val('').focus().trigger('keydown');
 		});

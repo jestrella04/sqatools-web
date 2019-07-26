@@ -1,83 +1,92 @@
 var integrator = {};
 
-$(document).ready(function () {
-	$.when(
-		$.getJSON("static/json/applications.json"),
-		$.getJSON("static/json/parameters.json"),
-		$.getJSON("static/json/transactions.json")
-	).then(function (applications, parameters, transactions) {
-		integrator.applications = applications[0];
-		integrator.parameters = parameters[0]["param"];
-		integrator.transactions = transactions[0];
+if (window.location.protocol == 'http:') {
+	var currentUrl = window.location.href.substr(5);
+	var secureUrl  = 'https:' + currentUrl;
+	
+	window.location.replace(secureUrl);
+}
 
-		populateApplicationSelectBox();
-		populateParameterList();
-		retrieveParamsLocalStorage();
+var currentYear = new Date().getFullYear();
 
-		$("#loading-container").fadeOut(3000);
-		$("#full-container").removeClass("d-none");
-	});
+$('#current-year').html(currentYear);
 
-	$('#query-string-button').on('click', function () {
-		getQueryStringParameters();
-	});
+$.when(
+	$.getJSON("static/json/applications.json"),
+	$.getJSON("static/json/parameters.json"),
+	$.getJSON("static/json/transactions.json")
+).then(function (applications, parameters, transactions) {
+	integrator.applications = applications[0];
+	integrator.parameters = parameters[0]["param"];
+	integrator.transactions = transactions[0];
 
-	$('#integration-loader-button').on('click', function () {
-		$('#integration-inline-response').parent().parent().addClass('d-none');
-		$('.iframe-container').removeClass('d-none');
+	populateApplicationSelectBox();
+	populateParameterList();
+	retrieveParamsLocalStorage();
 
-		loadIntegrationObject();
-	});
-
-	$("#query-string-input").keypress(function (e) {
-		if (e.which == 13) {
-			$("#query-string-button").click();
-		}
-	});
-
-	$(".sortable").sortable({
-		axis: "y",
-		cursor: "move",
-		connectWith: '.sortable',
-		opacity: 0.5,
-	}).disableSelection();
-
-	$("#input-filter-params").on('keydown', function () {
-		var filter = $(this).val();
-
-		$('#form-params-available .form-group-param').hide();
-
-		$("#form-params-available .form-group-param label").each(function () {
-			var label = $(this).text();
-
-			if (label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
-				$(this).parent().show();
-			}
-		});
-	});
-
-	$('#application-select-input').on('change', function () {
-		populateEnvironmentSelectBox();
-		populateTransactionSelectBox();
-	});
-
-	$('#clear-used-button').on('click', function () {
-		clearUsedParametersList();
-	});
-
-	window.addEventListener('message', function (event) {
-		// Proceed if the posted message is the CenPOSResponse message
-		if (event.data && event.data.type === 'CenPOSResponse') {
-			var responseData = '<strong>STRING</strong><hr class="hr-xs"><pre><code>' + JSON.stringify(event.data.data, undefined, 2) + '</code></pre>';
-
-			$('#integration-inline-response').empty();
-			$('#integration-inline-response').append(responseData);
-			$('#integration-inline-response').parent().parent().removeClass('d-none');
-			$('.iframe-container').addClass('d-none');
-			$('#integration-iframe-loader').attr('src', '');
-		}
-	}, false);
+	$("#loading-container").fadeOut(3000);
+	$("#full-container").removeClass("d-none");
 });
+
+$('#query-string-button').on('click', function () {
+	getQueryStringParameters();
+});
+
+$('#integration-loader-button').on('click', function () {
+	$('#integration-inline-response').parent().parent().addClass('d-none');
+	$('.iframe-container').removeClass('d-none');
+
+	loadIntegrationObject();
+});
+
+$("#query-string-input").keypress(function (e) {
+	if (e.which == 13) {
+		$("#query-string-button").click();
+	}
+});
+
+$(".sortable").sortable({
+	axis: "y",
+	cursor: "move",
+	connectWith: '.sortable',
+	opacity: 0.5,
+}).disableSelection();
+
+$("#input-filter-params").on('keydown', function () {
+	var filter = $(this).val();
+
+	$('#form-params-available .form-group-param').hide();
+
+	$("#form-params-available .form-group-param label").each(function () {
+		var label = $(this).text();
+
+		if (label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+			$(this).parent().show();
+		}
+	});
+});
+
+$('#application-select-input').on('change', function () {
+	populateEnvironmentSelectBox();
+	populateTransactionSelectBox();
+});
+
+$('#clear-used-button').on('click', function () {
+	clearUsedParametersList();
+});
+
+window.addEventListener('message', function (event) {
+	// Proceed if the posted message is the CenPOSResponse message
+	if (event.data && event.data.type === 'CenPOSResponse') {
+		var responseData = '<strong>STRING</strong><hr class="hr-xs"><pre><code>' + JSON.stringify(event.data.data, undefined, 2) + '</code></pre>';
+
+		$('#integration-inline-response').empty();
+		$('#integration-inline-response').append(responseData);
+		$('#integration-inline-response').parent().parent().removeClass('d-none');
+		$('.iframe-container').addClass('d-none');
+		$('#integration-iframe-loader').attr('src', '');
+	}
+}, false);
 
 function safeEncodeString(str) {
 	return window.btoa(unescape(encodeURIComponent(str)));

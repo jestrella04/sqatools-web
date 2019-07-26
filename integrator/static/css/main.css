@@ -64,3 +64,12 @@
     bottom: 0.2rem;
     cursor: pointer;
 }
+
+#footer {
+    font-size: 70%;
+    margin-top: 2rem;
+}
+
+#footer hr {
+    width: 70%;
+}
