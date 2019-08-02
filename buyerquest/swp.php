@@ -90,9 +90,9 @@ if (!is_null($webpay_base_path) && !is_null($testcase)) {
 			#submit{padding:1em;background:#0e659c;font-weight:700;color:white;border:1px solid whiteSmoke;border-radius:5px;cursor:pointer;}
 			#submit:hover{background:#157cbd;}
 		</style>
-		<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script type="text/javascript" src="//www.cenpos.com/Plugins/porthole.min.js"></script>
-		<script type="text/javascript" src="//www.cenpos.com/Plugins/jquery.restrictedtoken.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="https://www.cenpos.com/Plugins/porthole.min.js"></script>
+		<script type="text/javascript" src="https://www.cenpos.com/Plugins/jquery.restrictedtoken.js"></script>
 		<?php include('html/' . $testcase) ?>
 		<?php include('script.php') ?>
 	</head>

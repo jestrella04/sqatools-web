@@ -1,0 +1,30 @@
+#webpay {
+    width: 100%;
+    min-height: 750px;
+    border: 0;
+}
+
+#webpay-container {
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#webpay-response {
+    padding: 1rem;
+}
+
+#alert {
+    z-index: 9999;
+    position: absolute;
+    top: 2rem;
+    right: 35%;
+    margin: 3rem auto;
+    width: 30%;
+    display: none;
+    text-align: center;
+}
+
+.lgi-slim {
+    padding: 0.3rem 0.7rem;
+}

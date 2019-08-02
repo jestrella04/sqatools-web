@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Simple Webpay test manager">
+	<meta name="author" content="Jonathan Estrella">
+	<link rel="icon" href="../integrator/assets/img/favicon.png">
+
+	<title>Simple Webpay Test Tool - QA Tools</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="../resources/css/common.css">
+	<link rel="stylesheet" href="../resources/css/swp.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div class="form-group mt-2 mb-0">
+					<select class="form-control form-control-sm" id="server">
+						<option value=""> ------ Please select server ------ </option>
+						<option value="miami3">Production</option>
+						<option value="staging">Staging</option>
+					</select>
+				</div>
+
+				<div class="form-group mt-2 mb-2">
+					<select class="form-control form-control-sm" id="plugin">
+						<option value=""> ------ Please select plugin ------ </option>
+						<option value="iframe">Iframe</option>
+						<option value="object">Object</option>
+					</select>
+				</div>
+
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-001" data-targeturl="standard">swp-001 <small class="text-muted">(Regular)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-002" data-targeturl="standard">swp-002 <small class="text-muted">(Basic)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-003" data-targeturl="standard">swp-003 <small class="text-muted">(Email+CVV)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-004" data-targeturl="standard">swp-004 <small class="text-muted">(CVV)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-005" data-targeturl="standard">swp-005 <small class="text-muted">(Email)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-006" data-targeturl="ach">swp-006 <small class="text-muted">(Checks)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-007" data-targeturl="verify">swp-007 <small class="text-muted">(Regular + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-008" data-targeturl="verify">swp-008 <small class="text-muted">(Basic + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-009" data-targeturl="verify">swp-009 <small class="text-muted">(Email + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-010" data-targeturl="verify">swp-010 <small class="text-muted">(CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-011" data-targeturl="verify">swp-011 <small class="text-muted">(Email + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-012" data-targeturl="ach+verify">swp-012 <small class="text-muted">(Checks + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-013" data-targeturl="verify+norecaptcha">swp-013 <small class="text-muted">(Regular + Verify + No Recaptcha)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-014" data-targeturl="ach+verify+norecaptcha">swp-014 <small class="text-muted">(Checks + Verify + No Recaptcha)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-015" data-targeturl="verify+token19">swp-015 <small class="text-muted">(Token19 + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-016" data-targeturl="verify+token19">swp-016 <small class="text-muted">(Token19 + Email + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-017" data-targeturl="verify+token19">swp-017 <small class="text-muted">(Token19 + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-018" data-targeturl="verify+token19">swp-018 <small class="text-muted">(Token19 + Email + Verify)</small></a>
+				</div>
+			</div>
+
+			<div class="col-sm-10 pl-0">
+				<div class="form-group mt-2 mb-2">
+					<div class="input-group input-group-sm">
+						<div class="input-group-prepend">
+							<button type="button" class="btn btn-sm" id="script" data-toggle="modal" data-target="#script-source-modal" disabled>
+								<i class="fas fa-code" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="View plugin parameters used"></i>
+							</button>
+						</div>
+
+						<input type="text" id="webpay-url" class="form-control" placeholder="Loaded Webpay URL will be shown here" readonly="readonly">
+					</div>
+				</div>
+
+				<div class="alert alert-danger" role="alert" id="alert">
+					<a href="#" class="close alert-link">&times;</a>
+
+					<strong>Please select a valid environment and plugin</strong>
+				</div>
+
+				<div class="row" id="webpay-container">
+					<div class="col-sm-7">
+						<iframe id="webpay"></iframe>
+					</div>
+
+					<div class="col-sm-5" id="webpay-response"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="script-source-modal" tabindex="-1" role="dialog" aria-labelledby="scriptSourceModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<pre id="script-source-body"></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="../resources/js/common.js"></script>
+	<script src="../resources/js/swp.js"></script>
+</body>
+</html>

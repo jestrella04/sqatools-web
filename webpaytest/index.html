@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Webpay test manager">
+	<meta name="author" content="Jonathan Estrella">
+	<link rel="icon" href="../resources/icons/web.png">
+
+	<title>Webpay Test Tool - QA Tools</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="../resources/css/common.css">
+	<link rel="stylesheet" href="../resources/css/webpay.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<div class="form-group mt-2 mb-0">
+					<select class="form-control form-control-sm" id="server">
+						<option value=""> ------ Please select server ------ </option>
+						<option value="prod-mia3">Production</option>
+						<option value="prod-test">Staging</option>
+					</select>
+				</div>
+
+				<div class="form-group mt-2 mb-2">
+					<select class="form-control form-control-sm" id="plugin">
+						<option value=""> ------ Please select plugin ------ </option>
+						<option value="2.3">Version 2.3</option>
+						<option value="2.2">Version 2.2</option>
+						<option value="3.2">Version 3.2 (Temp)</option>
+					</select>
+				</div>
+
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-00">TC-00 <small class="text-muted">(Sale)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-01">TC-01 <small class="text-muted">(Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-02">TC-02 <small class="text-muted">(Auth19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-03">TC-03 <small class="text-muted">(Sale19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-04">TC-04 <small class="text-muted">(CreateToken)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-05">TC-05 <small class="text-muted">(CreateToken19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-06">TC-06 <small class="text-muted">(Sale)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-07">TC-07 <small class="text-muted">(Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-08">TC-08 <small class="text-muted">(Sale19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-09">TC-09 <small class="text-muted">(Auth19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-10">TC-10 <small class="text-muted">(CreateToken19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-11">TC-11 <small class="text-muted">(Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-12">TC-12 <small class="text-muted">(Sale - OnlyCheck)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-13">TC-13 <small class="text-muted">(CreateToken - Check)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-14">TC-14 <small class="text-muted">(Sale - OnlyCheck)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-15">TC-15 <small class="text-muted">(Sale19)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-16">TC-16 <small class="text-muted">(Sale - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-17">TC-17 <small class="text-muted">(Auth - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-18">TC-18 <small class="text-muted">(Auth19 - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-19">TC-19 <small class="text-muted">(Sale19 - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-20">TC-20 <small class="text-muted">(CreateToken - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-21">TC-21 <small class="text-muted">(CreateToken19 - Callback)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php"id="wp-testcase-22">TC-22 <small class="text-muted">(Sale - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-23">TC-23 <small class="text-muted">(Auth - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-24">TC-24 <small class="text-muted">(Auth19 - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-25">TC-25 <small class="text-muted">(Sale19 - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-26">TC-26 <small class="text-muted">(CreateToken - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-27">TC-27 <small class="text-muted">(CreateToken19 - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay-verify.php" id="wp-testcase-28">TC-28 <small class="text-muted">(CreateToken19 - Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-29">TC-29 <small class="text-muted">(Sale - Legacy Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-30">TC-30 <small class="text-muted">(Auth - Legacy Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-31">TC-31 <small class="text-muted">(Auth19 - Legacy Auth)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" data-urlwebpay="webpay.php" id="wp-testcase-32">TC-32 <small class="text-muted">(Sale19 - Legacy Auth)</small></a>
+				</div>
+			</div>
+
+			<div class="col-sm-10 pl-0">
+				<div class="form-group mt-2 mb-2">
+					<div class="input-group input-group-sm">
+						<div class="input-group-prepend">
+							<button type="button" class="btn btn-sm" id="script" data-toggle="modal" data-target="#script-source-modal" disabled>
+								<i class="fas fa-code" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="View plugin parameters used"></i>
+							</button>
+						</div>
+
+						<input type="text" id="webpay-url" class="form-control" placeholder="Loaded Webpay URL will be shown here" readonly="readonly">
+					</div>
+				</div>
+
+				<div class="alert alert-danger" role="alert" id="alert">
+					<button type="button" class="close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+					<strong>Please select a server and plugin version</strong>
+				</div>
+
+				<div id="webpay-container">
+					<div id="webpay-response"></div>
+					<iframe id="webpay"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="script-source-modal" tabindex="-1" role="dialog" aria-labelledby="scriptSourceModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<pre id="script-source-body"></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="../resources/js/common.js"></script>
+	<script src="../resources/js/webpay.js"></script>
+</body>
+</html>

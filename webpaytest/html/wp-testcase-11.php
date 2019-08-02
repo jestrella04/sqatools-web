@@ -1,6 +1,6 @@
 <script type="text/javascript">
  	var params = "type=auth";
-		params += "&merchantid=12720998";
+		params += "&merchantid=12721628";
 		params += "&amount=9.99";
 		params += "&email=cenposqatest@gmail.com";
 		params += "&customercode=webpay-test-11";
@@ -12,7 +12,7 @@
 		params += "&currencycode=840";
 		params += "&ispresta=true";
 		params += "&disabledalert=true";
-		params += "&sessionData=f0QYZm6rXVXG%2fbcCEfCZlsTW2RwCFgk3Q2mNBPxMohlQYhGYEKXccoVeXKOvcX25tPiPFcpkSAqeS4C1mfFRcA%3d%3d";
+		params += "&sessionData=9FuAKkEDoBy%2f6q%2fQjyHkg3P4CVwzaFtGiergoTtB%2fRS%2bozLLCkY387K93sPfkns01YecRDZTju2z3Zo3m6MQ7g%3d%3d";
 		params += "&autologin=false";
 
 	$( document ).ready( function()
@@ -22,7 +22,7 @@
 			url: '<?php echo $webpay_path ?>',
 			params: params,
 			domain: '<?php echo $webpay_path ?>',
-			sessionDataPOST: "127209987D5-8FBD-2ABE-8",
+			sessionDataPOST: "12721628A23A9-869",
 			encrypted: true,
 			width: "800",
 			height: "750"

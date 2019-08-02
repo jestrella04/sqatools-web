@@ -134,16 +134,9 @@ if (!is_null($webpay_path) && !is_null($testcase)) {
 	<head>
 		<meta charset="UTF-8">
 		<title>Simple Webpay Test</title>
-		<style type="text/css">
-			iframe{border:0;}
-			.swp-btn{padding:1em;font-weight:700;color:white;border:1px solid whiteSmoke;border-radius:5px;cursor:pointer;}
-			#submit{background:#0d47a1;}
-			#submit:hover{background:#4285F4;}
-			#cancel{background:#CC0000;}
-			#cancel:hover{background:#ff4444;}
-		</style>
-		<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-		<script type="text/javascript" src="//www.cenpos.com/Plugins/porthole.min.js"></script>
+		<link rel="stylesheet" href="../../../../resources/css/swp.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="https://www.cenpos.com/Plugins/porthole.min.js"></script>
 		<script type="text/javascript" src="<?= $plugin ?>"></script>
 		<?php include('html/' . $testcase) ?>
 	</head>
