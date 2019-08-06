@@ -26,35 +26,8 @@
 	</div>
 
 	<div id="full-container" class="container-fluid d-none">
-		<div class="row mt-3 mb-3">
-			<div class="col-sm-3">
-				<div class="col-sm-8 offset-sm-4">
-					<img src="static/img/logo.png" class="img-responsive logo" alt="CenPOS">
-				</div>
-			</div>
-
-			<div class="col-sm-4">
-				<div class="input-group input-group-sm">
-					<input type="text" class="form-control form-control-sm" id="query-string-input" placeholder="Enter a query string to get parameters and values from it">
-					
-					<span class="input-group-append">
-						<button class="btn btn-dark" id="query-string-button" type="button">Go!</button>
-					</span>
-				</div>
-			</div>
-
-			<div class="col-sm-5">
-				<div class="float-right">
-					<a class="btn btn-outline-dark btn-sm" href="../" target="_blank" title="CenPOS QA Tools and Application Links">
-						<i class="fas fa-arrow-left mr-1"></i>
-						QA Tools
-					</a>
-				</div>
-			</div>
-		</div>
-
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-3 mt-2">
 				<div class="form-group row">
 					<div class="col-sm-12">
 						<button id="integration-loader-button" class="btn btn-dark btn-sm btn-block">Load Object</button>
@@ -141,22 +114,28 @@
 				</div>
 			</div>
 
-			<div class="col-sm-9">
+			<div class="col-sm-9 pl-0 mt-2">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Endpoint:</span>
 					</div>
 
 					<input type="text" id="integration-endpoint-input" class="form-control form-control-sm" placeholder="Endpoint will be displayed here" readonly="readonly">
+
+					<div class="input-group-append">
+						<button class="btn btn-dark" id="query-string-button" type="button" data-toggle="modal" data-target="#query-string-modal">
+							<i class="fas fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Enter a query string to get parameters and values from it"></i>
+						</button>
+					</div>
 				</div>
 
-				<div class="card mt-3 d-none">
+				<div class="card mt-2 d-none">
 					<div class="card-body">
 						<div id="integration-inline-response"></div>
 					</div>
 				</div>
 
-				<div class="card mt-3 iframe-container">
+				<div class="card mt-2 iframe-container">
 					<div class="card-body">
 						<div id="post-form"></div>
 
@@ -175,6 +154,25 @@
 			&copy; <span id="current-year"></span> CenPOS, Inc.<br>
 			All rights reserved
 		</p>
+	</div>
+
+	<div class="modal fade" id="query-string-modal" tabindex="-1" role="dialog" aria-labelledby="queryStringModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Query String Parser</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<textarea class="form-control mb-2" id="query-string-input" rows="5" placeholder="Enter a query string here to get parameters and values from it, then press Enter or click on the load button below..."></textarea>
+					<button class="btn btn-primary btn-block" id="query-string-submit" type="button">Load Parameters</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
