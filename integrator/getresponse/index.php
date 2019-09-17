@@ -4,79 +4,38 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Webpay test manager">
+		<meta name="description" content="Response analyzer and logger for the CenPOS integrated platforms">
 		<meta name="author" content="Jonathan Estrella">
 
-		<title>Integrations Response Analyzer - QA Tools</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<style type="text/css">
-			pre{border: 0; background-color: transparent;}
-			.hr-xs{margin:7px 0;}
-			ul{word-wrap: break-word;}
-		</style>
+		<title>Integrations Response Analyzer and Logger - QA Tools</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+		<link rel="stylesheet" href="<?php if (isset($_SERVER["PATH_INFO"])) echo '../' ?>../static/css/main.css">
 	</head>
 
 	<body>
+		<?php		
+		// Get data structure from URL
+		$path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], '/') : false;
+		$mod = 'parse';
 
-<?php
-$dataPost = file_get_contents("php://input");
-$dataGet = $_GET;
-
-if ( isset( $dataPost ) && ! empty( $dataPost ) )
-{
-	$data = $dataPost;
-	$dataType = "POST";
-}
-
-elseif ( isset( $dataGet ) && ! empty( $dataGet ) )
-{
-	$data = $dataGet;
-	$dataType = "GET";
-}
-
-if ( $data )
-{
-	echo '<strong>'. $dataType .'</strong><hr class="hr-xs">';
-
-	@$xml = simplexml_load_string( $data );
-	@$json = json_decode( $data );
-
-	if ( is_object( $xml ) )
-	{
-		//Format XML to save indented tree rather than one line
-		$dom = new DOMDocument();
-		$dom->preserveWhiteSpace = false;
-		$dom->formatOutput = true;
-		$dom->loadXML($xml->asXML());
-
-		$outputXML = htmlentities( $dom->saveXML() );
-		echo '<pre><code>' . $outputXML . '</code></pre>';
-	}
-	
-	elseif ( is_object( $json ) )
-	{
-		echo '<pre><code>'. htmlentities( print_r( $json, $return = true ) ) .'</code></pre>';
-	}
-
-	elseif ( is_array( $data ) )
-	{
-		echo '<ul class="list-unstyled">';
-
-		foreach( $data as $param=>$value )
-		{
-			echo '<li><strong>'.$param.':</strong> '.$value.'</li>';
+		if ($path) {
+			$path_parts = explode('/', $path);
+			$mod = $path_parts[0];
 		}
-
-		echo "</ul>";
-	}
-
-	elseif ( ! empty( $data ) )
-	{
-		echo "Invalid response format, message dump below:<br><br>";
-		echo '<pre><code>'. htmlentities( print_r( $data, $return = true ) ) .'</code></pre>';
-	}
-}
-?>
-
+		
+		switch ($mod) {
+			case 'parse':
+				require('parse.php');
+				break;
+			case 'view':
+				require('view.php');
+				break;
+			case 'truncate':
+				require('trunc.php');
+				break;
+			default:
+				require('error.php');
+		}
+		?>
 	</body>
 </html>

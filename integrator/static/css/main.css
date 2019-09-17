@@ -73,3 +73,17 @@
 #footer hr {
     width: 70%;
 }
+
+#response-analyzer-view p {
+    font-weight: 700;
+    margin-bottom: -0.7rem;
+}
+
+#response-analyzer-view .response-dump pre {
+    border: 0;
+    background-color: transparent;
+}
+
+#response-analyzer-view .response-dump ul {
+    word-wrap: break-word;
+}
