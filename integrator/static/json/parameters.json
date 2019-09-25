@@ -95,6 +95,9 @@
 		"merchantid": [
 			""
 		],
+		"message": [
+			""
+		],
 		"modifyavs": [
 			"true",
 			"false",

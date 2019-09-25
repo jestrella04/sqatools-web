@@ -63,5 +63,13 @@
 			"createtoken",
 			"createtoken19"
 		]
+	},
+	"bridge-api": {
+		"desc": "",
+		"transaction": [
+			"GetGiftCardSwipe",
+			"Disclaimer",
+			"GetSignature"
+		]
 	}
 }

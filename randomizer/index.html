@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Random data generator for CenPOS related tasks">
+	<meta name="author" content="Jonathan Estrella">
+	<link rel="icon" href="../resources/icons/qa.png">
+
+	<title>Randomizer - QA Tools</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous">
+	<link rel="stylesheet" href="../resources/css/random.css">
+</head>
+
+<body>
+	<div id="container-random" class="container">
+        <form id="form-datagen-random" class="form-main">
+            <h5>Randomizer<small> Random string generator</small></h5>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <textarea id="textarea-gen" class="form-control" rows="5" placeholder="Enter a collection of placeholders to generate a random string" required></textarea>
+                        <small class="form-text text-muted">Use {#} as a placeholder for a random number [0-9].</small>
+                        <small class="form-text text-muted">Use {a} as a placeholder for a random character [a-z].</small>
+                        <small class="form-text text-muted">Use {w} as a placeholder for a random nonsense word.</small>
+                        <small class="form-text text-muted">Use {%} as a placeholder for a random special character.</small>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <textarea id="textarea-get" class="form-control" rows="5" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="button-get-random" class="btn btn-primary">Generate</button>
+        </form>
+
+        <div id="container-custom-datagen">
+            <h6>Custom Data Generators</h6>
+
+            <div class="list-group list-group-horizontal">
+                <a href="#" class="list-group-item list-group-item-action link-show-datagen" id="link-show-ebppbu">EBPP Batch Upload</a>
+                <a href="#" class="list-group-item list-group-item-action link-show-datagen disabled" id="">Placeholder</a>
+                <a href="#" class="list-group-item list-group-item-action link-show-datagen disabled" id="">Placeholder</a>
+                <a href="#" class="list-group-item list-group-item-action link-show-datagen disabled" id="">Placeholder</a>
+            </div>
+        </div>
+
+		<form id="form-datagen-ebppbu" class="form-datagen d-none">
+            <fieldset>
+                <legend>EBPP Batch Upload CSV Generator</legend>
+            </fieldset>
+            
+            <div class="form-group">
+              <label for="input-mid">Merchant ID</label>
+              <input type="number" class="form-control" id="input-mid" required>
+            </div>
+
+            <div class="form-group">
+                <label for="input-email">Email</label>
+                <input type="email" class="form-control" id="input-email" required>
+                <small class="form-text text-muted">You can use the predefined placeholders to generate a random email per invoice.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="input-invcount"># of Invoices</label>
+                <input type="number" class="form-control" id="input-invcount" step="1" min="1" value="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="input-lineitemmin">Line items min</label>
+                <input type="number" class="form-control" id="input-lineitemmin" step="1" min="1" value="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="input-lineitemmax">Line items max</label>
+                <input type="number" class="form-control" id="input-lineitemmax" step="1" min="1" value="10" required>
+            </div>
+
+            <div class="form-group">
+                <label for="input-amountmax">Amount max</label>
+                <input type="number" class="form-control" id="input-amountmax" step="0.01" min="1" value="999.99" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generate CSV</button>
+            <button type="cancel" class="btn btn-danger btn-hide-datagen">Go Back</button>
+          </form>
+	</div>
+
+	<div class="container" id="footer">
+		<hr>
+		<p class="text-muted text-center">
+			&copy; <span id="current-year"></span> CenPOS, Inc.<br>
+			All rights reserved
+		</p>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.0/chance.min.js" integrity="sha256-+bo9VPNB85DWg5DKk5YGyHqCd4zCK4fjnhD9hSIM/aI=" crossorigin="anonymous"></script>
+    <script src="../resources/js/common.js"></script>
+    <script src="../resources/js/random.js"></script>
+</body>
+</html>
