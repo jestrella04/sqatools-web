@@ -46,7 +46,7 @@ function generateBatchUploadExportObject(args) {
 
         for (var l = 0; l < lineItemCount; l++) {
             var lineItemAmount = chance.dollar({ max: amountMax }).replace('$', '');
-            var description = chance.age() + ' ' + chance.word() + ' ' + chance.animal();
+            var description = chance.age() + ' ' + chance.capitalize(chance.word()) + ' ' + chance.animal();
 
             exportObject[i].lineItems[l] = {};
             exportObject[i].lineItems[l].type = 'D';
@@ -187,7 +187,7 @@ function downloadFile(args) {
     document.body.removeChild(a);
 }
 
-$('.link-show-datagen').on('click', function (e) {
+$('.link-show-datagen').on('click', function () {
     $('.form-main').addClass('d-none');
     $('.form-datagen').addClass('d-none');
 });
