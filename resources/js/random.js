@@ -80,9 +80,30 @@ function ebppBatchUploadObjectToCsv(args) {
     var object = Object.values(args.object) || null;
     var columnDelimiter = args.columnDelimiter || ',';
     var lineDelimiter = args.lineDelimiter || '\n';
-    var includeHeader = args.includeHeader || false;
+    var includeHeader = args.includeHeader || true;
     var fileContents = '';
 
+    // Generate header lines
+    if (includeHeader) {
+        var headerKeys = Object.keys(object[0].header);
+        var lineItemKeys = Object.keys(object[0].lineItems[0]);
+
+        // Append header column titles (EBPP BU ignores the first H line)
+        fileContents += combineArrayToString({
+            object: headerKeys,
+            columnDelimiter: columnDelimiter,
+            lineDelimiter: lineDelimiter
+        }).replace('type' + columnDelimiter, 'H' + columnDelimiter);
+
+        // Append line items column titles (EBPP BU ignores the first D line)
+        fileContents += combineArrayToString({
+            object: lineItemKeys,
+            columnDelimiter: columnDelimiter,
+            lineDelimiter: lineDelimiter
+        }).replace('type' + columnDelimiter, 'D' + columnDelimiter);
+    }
+
+    // Generate invoice data
     object.forEach(function(line) {
         var header = line['header'];
         var items  = Object.values(line['lineItems']);
