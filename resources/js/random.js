@@ -1,9 +1,9 @@
 function generateBatchUploadExportObject(args) {
     var merchantId = args.merchantId;
-    var invoiceCount = args.invoiceCount;
+    var invoiceCount = parseInt(args.invoiceCount);
     var email = args.email;
-    var lineItemMin = args.lineItemMin;
-    var lineItemMax = args.lineItemMax;
+    var lineItemMin = parseInt(args.lineItemMin);
+    var lineItemMax = parseInt(args.lineItemMax);
     var amountMax = args.amountMax;
     var currentDate = new Date();
     var formatDate = ('0' + (currentDate.getMonth() + 1)).slice(-2) + currentDate.getDate().toString() + currentDate.getFullYear().toString(); 
@@ -44,9 +44,8 @@ function generateBatchUploadExportObject(args) {
         var lineItemCount = chance.integer({ min: lineItemMin, max: lineItemMax });
         var lineItemInvoice = 'BU-' + chance.string({ length: 10, pool: '0123456789' });
 
-        for (l = 0; l < lineItemCount; l++) {
+        for (var l = 0; l < lineItemCount; l++) {
             var lineItemAmount = chance.dollar({ max: amountMax }).replace('$', '');
-            //var lineItemTaxAmount = lineItemAmount * (lineItemTaxAmount / 100);
             var description = chance.age() + ' ' + chance.word() + ' ' + chance.animal();
 
             exportObject[i].lineItems[l] = {};
