@@ -1,3 +1,62 @@
+function combineArrayToString (args) {
+    var object = Object.values(args.object) || null;
+    var columnDelimiter = args.columnDelimiter || ',';
+    var lineDelimiter = args.lineDelimiter || '\n';
+    var result = object.join(columnDelimiter);
+
+    return result + lineDelimiter;
+}
+
+function placeholderReplace(string) {
+    // Numbers
+    string = string.replace(/{#}/g, function() {
+        return chance.integer({ min: 0, max: 9 });
+    });
+
+    // Letters
+    string = string.replace(/{a}/g, function() {
+        return chance.letter();
+    });
+
+    // Words
+    string = string.replace(/{w}/g, function() {
+        return chance.word();
+    });
+
+    // Special Characters
+    string = string.replace(/{%}/g, function() {
+        return chance.character({ symbols: true });
+    });
+
+    return string;
+}
+
+function downloadFile(args) {
+    var fileName = args.fileName || 'export.txt';
+    var fileContents = args.fileContents || null;
+    var fileType = args.fileType || 'text/plain';
+    
+    // Create an invisible A element
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    document.body.appendChild(a);
+  
+    // Set the HREF to a Blob representation of the data to be downloaded
+    a.href = window.URL.createObjectURL(
+        new Blob([fileContents], { fileType })
+    );
+  
+    // Use download attribute to set set desired file name
+    a.setAttribute('download', fileName);
+  
+    // Trigger the download by simulating click
+    a.click();
+  
+    // Cleanup
+    window.URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+}
+
 function ebppbuInvoiceCollection(args) {
     var format = args.format;
     var merchantId = args.merchantId;
@@ -217,68 +276,67 @@ function ebppbuInvoiceCollectionToCsv(args) {
     return fileContents;
 }
 
-function combineArrayToString (args) {
-    var object = Object.values(args.object) || null;
-    var columnDelimiter = args.columnDelimiter || ',';
-    var lineDelimiter = args.lineDelimiter || '\n';
-    var result = object.join(columnDelimiter);
+function level3Information (args) {
+    var lineItems = args.lineItems || 1;
+    var lineItemAmountMax = args.lineItemAmountMax || 999.99
+    var level3Object = {};
+    var currentDate = new Date();
+    var formatDate = ('0' + (currentDate.getMonth() + 1)).slice(-2) + currentDate.getDate().toString() + currentDate.getFullYear().toString();
 
-    return result + lineDelimiter;
+    // Generate header
+    level3Object.LevelIIIData = {}
+    level3Object.LevelIIIData.Header = {};
+    level3Object.LevelIIIData.Header.CustomerCode = 'CU-' + chance.string({ length: 7, pool: '0123456789' });
+    level3Object.LevelIIIData.Header.ShiptofromZIPcode = chance.zip();
+    level3Object.LevelIIIData.Header.Destinationcountrycode = '840';
+    level3Object.LevelIIIData.Header.VATinvoicereferencenumber = '1';
+    level3Object.LevelIIIData.Header.VATtaxamountrate = '0.07';
+    level3Object.LevelIIIData.Header.Freightshippingamount = '0';
+    level3Object.LevelIIIData.Header.Dutyamount = '0';
+    level3Object.LevelIIIData.Header.Orderdate = formatDate;
+    level3Object.LevelIIIData.Header.Discountamount = '0';
+
+    // Generate line items
+    level3Object.LevelIIIData.Products = {};
+    level3Object.LevelIIIData.Products.product = [];
+
+    for (var i = 0; i < lineItems; i++) {
+        var lineItemAmount = chance.dollar({ max: lineItemAmountMax }).replace('$', '');
+        var lineItemQuantity = chance.integer({ min: 1, max: 10 });
+        var lineItemTotal = (parseFloat(lineItemAmount) * parseInt(lineItemQuantity)).toFixed(2);
+        var lineItemInfo = {};
+
+        // Generate line item information
+        lineItemInfo.ItemCommodityCode = 'C2584';
+        lineItemInfo.ItemDescription = chance.sentence();
+        lineItemInfo.ItemSequenceNumber = i + 1;
+        lineItemInfo.LineItemTotal = lineItemTotal;
+        lineItemInfo.ProductCode = 'L3-' + chance.string({ length: 10, pool: '0123456789' });;
+        lineItemInfo.Quantity = lineItemQuantity;
+        lineItemInfo.Selected = 'true';
+        lineItemInfo.UnitCost = lineItemAmount;
+        lineItemInfo.UnitofMeasureCode = 'CCT';
+
+        // Add to the level III object
+        level3Object.LevelIIIData.Products.product.push(lineItemInfo);
+    }
+
+    // Generate notes
+    level3Object.LevelIIIData.Notes = {};
+    level3Object.LevelIIIData.Notes.Note = [];
+    level3Object.LevelIIIData.Notes.Note.push(chance.sentence());
+
+    return level3Object;
 }
 
-function placeholderReplace(string) {
-    // Numbers
-    string = string.replace(/{#}/g, function() {
-        return chance.integer({ min: 0, max: 9 });
-    });
-
-    // Letters
-    string = string.replace(/{a}/g, function() {
-        return chance.letter();
-    });
-
-    // Words
-    string = string.replace(/{w}/g, function() {
-        return chance.word();
-    });
-
-    // Special Characters
-    string = string.replace(/{%}/g, function() {
-        return chance.character({ symbols: true });
-    });
-
-    return string;
-}
-
-function downloadFile(args) {
-    var fileName = args.fileName || 'export.txt';
-    var fileContents = args.fileContents || null;
-    var fileType = args.fileType || 'text/plain';
-    
-    // Create an invisible A element
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    document.body.appendChild(a);
-  
-    // Set the HREF to a Blob representation of the data to be downloaded
-    a.href = window.URL.createObjectURL(
-        new Blob([fileContents], { fileType })
-    );
-  
-    // Use download attribute to set set desired file name
-    a.setAttribute('download', fileName);
-  
-    // Trigger the download by simulating click
-    a.click();
-  
-    // Cleanup
-    window.URL.revokeObjectURL(a.href);
-    document.body.removeChild(a);
-}
-
-$('.link-show-datagen').on('click', function () {
-    $('.form-main').addClass('d-none');
+$('.btn-hide-datagen, .link-hide-datagen').on('click', function (e) {
+    e.preventDefault();
     $('.form-datagen').addClass('d-none');
+});
+
+$('#link-show-string').on('click', function (e) {
+    e.preventDefault();
+    $('#form-datagen-string').removeClass('d-none');
 });
 
 $('#link-show-ebppbu').on('click', function (e) {
@@ -286,10 +344,9 @@ $('#link-show-ebppbu').on('click', function (e) {
     $('#form-datagen-ebppbu').removeClass('d-none');
 });
 
-$('.btn-hide-datagen').on('click', function (e) {
+$('#link-show-level3').on('click', function (e) {
     e.preventDefault();
-    $('.form-main').removeClass('d-none');
-    $('.form-datagen').addClass('d-none');
+    $('#form-datagen-level3').removeClass('d-none');
 });
 
 $('#form-datagen-random').on('submit', function (e) {
@@ -297,6 +354,32 @@ $('#form-datagen-random').on('submit', function (e) {
 
     var random = placeholderReplace($('#textarea-gen').val());
     $('#textarea-get').val(random);
+});
+
+$('#input-ebppbu-format').on('change', function () {
+    var currentVal = $(this).val();
+
+    if ('stf' == currentVal) {
+        // Enable the line item fields
+        $('#input-ebppbu-mid').attr('disabled', false);
+        $('#input-ebppbu-lineitemmin').attr('disabled', false);
+        $('#input-ebppbu-lineitemmax').attr('disabled', false);
+
+        // Unhide the fields
+        $('#input-ebppbu-mid').parent().parent().removeClass('d-none');
+        $('#input-ebppbu-lineitemmin').parent().parent().removeClass('d-none');
+        $('#input-ebppbu-lineitemmax').parent().parent().removeClass('d-none');
+    } else {
+        // Disable the line item fields
+        $('#input-ebppbu-mid').attr('disabled', 'disabled');
+        $('#input-ebppbu-lineitemmin').attr('disabled', 'disabled');
+        $('#input-ebppbu-lineitemmax').attr('disabled', 'disabled');
+
+        // Hide the fields
+        $('#input-ebppbu-mid').parent().parent().addClass('d-none');
+        $('#input-ebppbu-lineitemmin').parent().parent().addClass('d-none');
+        $('#input-ebppbu-lineitemmax').parent().parent().addClass('d-none');
+    }
 });
 
 $('#form-datagen-ebppbu').on('submit', function (e) {
@@ -314,10 +397,6 @@ $('#form-datagen-ebppbu').on('submit', function (e) {
         amountMax: $('#input-ebppbu-amountmax').val()
     });
 
-    // For debugging purposes only
-    // Log the raw object to the console
-    console.log(exportObject);
-
     // Convert the raw object to CSV
     exportObject = ebppbuInvoiceCollectionToCsv({
         format: exportFormat,
@@ -332,28 +411,19 @@ $('#form-datagen-ebppbu').on('submit', function (e) {
     });
 });
 
-$('#input-ebppbu-format').on('change', function () {
-    var currentVal = $(this).val();
+$('#form-datagen-level3').on('submit', function (e) {
+    e.preventDefault();
 
-    if ('stf' == currentVal) {
-        // Enable the line item fields
-        $('#input-ebppbu-mid').attr('disabled', false);
-        $('#input-ebppbu-lineitemmin').attr('disabled', false);
-        $('#input-ebppbu-lineitemmax').attr('disabled', false);
+    var lineItems = $('#input-level3-lineitems').val();
+    var lineItemAmountMax = $('#input-level3-amountmax').val();
+    var level3Object = level3Information({
+        lineItems: lineItems,
+        lineItemAmountMax: lineItemAmountMax
+    });
 
-        // Unhide the fields
-        $('#input-ebppbu-mid').parent().removeClass('d-none');
-        $('#input-ebppbu-lineitemmin').parent().removeClass('d-none');
-        $('#input-ebppbu-lineitemmax').parent().removeClass('d-none');
-    } else {
-        // Disable the line item fields
-        $('#input-ebppbu-mid').attr('disabled', 'disabled');
-        $('#input-ebppbu-lineitemmin').attr('disabled', 'disabled');
-        $('#input-ebppbu-lineitemmax').attr('disabled', 'disabled');
+    // Create x2js instance with default config
+    var x2js = new X2JS();
+    var xml = x2js.json2xml_str(level3Object);
 
-        // Hide the fields
-        $('#input-ebppbu-mid').parent().addClass('d-none');
-        $('#input-ebppbu-lineitemmin').parent().addClass('d-none');
-        $('#input-ebppbu-lineitemmax').parent().addClass('d-none');
-    }
+    $('#input-level3-xml').val(xml);
 });
