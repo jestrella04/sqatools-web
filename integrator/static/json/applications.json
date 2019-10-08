@@ -32,6 +32,7 @@
 		"desc": "",
 		"type": "bridge-api",
 		"url": {
+			"Prod": "https://www4.cenpos.net/spa/app/bridge-api/",
 			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/spa-apps/app/bridge-api/"
 		}
 	},
