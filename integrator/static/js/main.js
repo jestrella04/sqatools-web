@@ -99,17 +99,13 @@ function safeDecodeString(str) {
 	return decodeURIComponent(escape(window.atob(str)));
 }
 
-function paramEncodeValue(key, val) {
-	if (key == "password" || key == "urlresponse" || key == "leveliiidata" || key == "autorentaldata" || key == "customercode" || key == "email" || key == "invoice") {
-		val = encodeURI(val);
-	}
-
-	return val;
-}
-
 function paramEncodeValue(name, value) {
 	if (name == "password" || name == "urlresponse" || name == "leveliiidata" || name == "autorentaldata") {
 		value = safeEncodeString(value);
+	}
+
+	if (name == "customercode" || name == "email" || name == "invoice" || name == "address") {
+		value = encodeURI(value);
 	}
 
 	return value;
