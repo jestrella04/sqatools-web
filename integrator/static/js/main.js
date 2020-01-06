@@ -214,7 +214,7 @@ function getQueryStringParameters() {
 				value = safeDecodeString(decodeURIComponent(value));
 			}
 
-			else if (key == "customercode" || key == "email" || key == "invoice") {
+			else if (key == "customercode" || key == "email" || key == "invoice" || key == "address") {
 				value = decodeURI(value);
 			}
 

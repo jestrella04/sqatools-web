@@ -76,5 +76,9 @@ if ($data)
 
     <div class="response-dump">
         <?= $op ?>
-    </div>
+	</div>
+	
+	<div class="response-log">
+		<a href="index.php/view" target="_blank" class="btn btn-light btn-sm">View Log</a>
+	</div>
 </div>
