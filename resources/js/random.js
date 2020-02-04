@@ -349,7 +349,7 @@ $('#link-show-level3').on('click', function (e) {
     $('#form-datagen-level3').removeClass('d-none');
 });
 
-$('#form-datagen-random').on('submit', function (e) {
+$('#form-datagen-string').on('submit', function (e) {
     e.preventDefault();
 
     var random = placeholderReplace($('#textarea-gen').val());

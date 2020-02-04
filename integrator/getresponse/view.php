@@ -36,7 +36,7 @@ $high = $p * $limit;
                 <td><?= $row['id'] ?></td>
                 <td><?= $row['date'] ?></td>
                 <td><?= $row['type'] ?></td>
-                <td><?= $row['response'] ?></td>
+                <td class="text-break"><?= $row['response'] ?></td>
             </tr>
             <?php endforeach ?>
         </tbody>

@@ -42,9 +42,9 @@ if ('prod-test' == $environment) {
 }
 
 // Validate plugin version
-if (!is_numeric($plugin)) {
+/*if (!is_numeric($plugin)) {
 	$plugin = null;
-}
+}*/
 
 // Validate file exists
 if (!file_exists('html/' . $testcase)) {
