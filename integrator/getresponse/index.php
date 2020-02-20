@@ -9,6 +9,7 @@
 
 		<title>Integrations Response Analyzer and Logger - QA Tools</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous">
 		<link rel="stylesheet" href="<?php if (isset($_SERVER["PATH_INFO"])) echo '../' ?>../static/css/main.css">
 	</head>
 

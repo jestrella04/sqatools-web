@@ -42,5 +42,11 @@ $high = $p * $limit;
         </tbody>
     </table>
 
+    <div id="btn-go-top">
+        <a href="#top" class="btn btn-outline-dark">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+    </div>
+
     <?php include('nav.php') ?>
 </div>

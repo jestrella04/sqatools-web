@@ -87,3 +87,10 @@
 #response-analyzer-view .response-dump ul {
     word-wrap: break-word;
 }
+
+#btn-go-top {
+    position: fixed;
+    z-index: 9999;
+    bottom: 2rem;
+    right: 2rem;
+}
