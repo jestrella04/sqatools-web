@@ -100,7 +100,7 @@ function safeDecodeString(str) {
 }
 
 function paramEncodeValue(name, value) {
-	if (name == "password" || name == "urlresponse" || name == "leveliiidata" || name == "autorentaldata") {
+	if (name == "password" || name == "urlresponse" || name == "urlresponsepost" || name == "leveliiidata" || name == "autorentaldata") {
 		value = safeEncodeString(value);
 	}
 
@@ -210,7 +210,7 @@ function getQueryStringParameters() {
 		queryString.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
 			key = key.toLowerCase();
 
-			if (key == "password" || key == "urlresponse" || key == "leveliiidata" || key == "autorentaldata") {
+			if (key == "password" || key == "urlresponse" || name == "urlresponsepost" || key == "leveliiidata" || key == "autorentaldata") {
 				value = safeDecodeString(decodeURIComponent(value));
 			}
 
