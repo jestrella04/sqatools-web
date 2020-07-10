@@ -1,13 +1,12 @@
 <script type="text/javascript">
 	var params = "";
 
-	params += "merchantid=wR476sD9f0B9ecI0%2FzPOWQ%3D%3D";
-	params += "&email=cenposqatest@gmail.com";
+	params += "verifyingpost=<?php echo urlencode($response->Data)?>";
 	params += "&customercode=swp001";
 	params += "&address=9048";
 	params += "&zipcode=33189";
 	params += "&isemail=true";
-	params += "&iscvv=false";
+	params += "&iscvv=true";
 
 	$(document).ready(function()
 	{

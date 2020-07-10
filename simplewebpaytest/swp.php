@@ -19,7 +19,7 @@ $token19 = false;
 $response = false;
 $webpay_path = null;
 $testcase = null;
-$recaptcha = true;
+$recaptcha = false;
 $object = false;
 $plugin = "//www.cenpos.com/Plugins/jquery.simplewebpay.js";
 
@@ -52,9 +52,13 @@ if (in_array('token19', $extraOptions)) {
 	$token19 = true;
 }
 
-// Disable Recaptcha
-if (in_array('norecaptcha', $extraOptions)) {
+// Set Recaptcha
+if (in_array('recaptchadisabled', $extraOptions)) {
 	$recaptcha = false;
+} elseif (in_array('recaptchav2', $extraOptions)) {
+	$recaptcha = 'v2';
+} elseif (in_array('recaptchav3', $extraOptions)) {
+	$recaptcha = 'v3';
 }
 
 // Check for Object flag
@@ -88,7 +92,14 @@ if ($verify) {
 	$postParams = "secretkey=$privatekey&merchant=$merchantId&email=$email&ip=$ip";
 	
 	if ($token19) $postParams = $postParams . '&type=createtoken19';
-	if (!$recaptcha) $postParams = $postParams . '&isrecaptcha=false';
+
+	if (!$recaptcha) {
+		$postParams = $postParams . '&isrecaptcha=false';
+	} else {
+		$postParams = $postParams . '&isrecaptcha=true&recaptchaversion=' . $recaptcha;
+	}
+
+	echo $postParams;
 	
 	// Initialize cURL
 	$ch = curl_init($postUrl);

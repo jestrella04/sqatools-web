@@ -1,22 +1,22 @@
 <script type="text/javascript">
 	var params = "";
 
-	params += "verifyingpost=<?php echo urlencode($response->Data)?>";
+	params += "verifyingpost=<?= urlencode($response->Data) ?>";
 	params += "&customercode=swp001";
 	params += "&address=9048";
 	params += "&zipcode=33189";
 	params += "&isemail=false";
-	params += "&iscvv=true";
+	params += "&iscvv=false";
 
 	$(document).ready(function()
 	{
 		$("#NewCenposPlugin").createWebpay(
 		{
-			url: '<?php echo $webpay_path ?>',
+			url: '<?= $webpay_path ?>',
 			params: params,
 			width: "500",
 			height: "450",
-			sessionToken: false,
+			sessionToken: true,
 			success: formatResponse,
 			cancel: formatResponse
 		});

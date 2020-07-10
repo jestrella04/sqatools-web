@@ -2,7 +2,10 @@
 	var params = "";
 
 	params += "verifyingpost=<?php echo urlencode($response->Data)?>";
-	params += "&isemail=false";
+	params += "&customercode=swp001";
+	params += "&address=9048";
+	params += "&zipcode=33189";
+	params += "&isemail=true";
 	params += "&iscvv=false";
 
 	$(document).ready(function()

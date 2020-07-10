@@ -21,18 +21,27 @@
 		<div class="row">
 			<div class="col-sm-2">
 				<div class="form-group mt-2 mb-0">
-					<select class="form-control form-control-sm" id="server">
-						<option value=""> ------ Please select server ------ </option>
+					<select class="form-control form-control-sm custom-select" id="server">
+						<option value=""> ------ Server ------ </option>
 						<option value="miami3">Production</option>
 						<option value="staging">Staging</option>
 					</select>
 				</div>
 
-				<div class="form-group mt-2 mb-2">
-					<select class="form-control form-control-sm" id="plugin">
-						<option value=""> ------ Please select plugin ------ </option>
+				<div class="form-group my-2">
+					<select class="form-control form-control-sm custom-select" id="plugin">
+						<option value=""> ------ Plugin ------ </option>
 						<option value="iframe">Iframe</option>
 						<option value="object">Object</option>
+					</select>
+				</div>
+
+				<div class="form-group my-2">
+					<select class="form-control form-control-sm custom-select" id="recaptcha">
+						<option value=""> ------ Recaptcha ------ </option>
+						<option value="disabled">Disabled</option>
+						<option value="v2">v2</option>
+						<option value="v3">v3</option>
 					</select>
 				</div>
 
@@ -40,36 +49,21 @@
 					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-001" data-targeturl="standard">swp-001 <small class="text-muted">(Regular)</small></a>
 					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-002" data-targeturl="standard">swp-002 <small class="text-muted">(Basic)</small></a>
 					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-003" data-targeturl="standard">swp-003 <small class="text-muted">(Email + CVV)</small></a>
-					<!-- <a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-004" data-targeturl="standard">swp-004 <small class="text-muted">(CVV)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-005" data-targeturl="standard">swp-005 <small class="text-muted">(Email)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-006" data-targeturl="ach">swp-006 <small class="text-muted">(Checks)</small></a> -->
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-007" data-targeturl="verify">swp-007 <small class="text-muted">(Regular + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-008" data-targeturl="verify">swp-008 <small class="text-muted">(Basic + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-009" data-targeturl="verify">swp-009 <small class="text-muted">(Email + CVV + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-010" data-targeturl="verify">swp-010 <small class="text-muted">(CVV + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-011" data-targeturl="verify">swp-011 <small class="text-muted">(Email + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-012" data-targeturl="ach+verify">swp-012 <small class="text-muted">(Checks + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-013" data-targeturl="verify+norecaptcha">swp-013 <small class="text-muted">(Regular + Verify + No Recaptcha)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-014" data-targeturl="ach+verify+norecaptcha">swp-014 <small class="text-muted">(Checks + Verify + No Recaptcha)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-015" data-targeturl="verify+token19">swp-015 <small class="text-muted">(Token19 + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-016" data-targeturl="verify+token19">swp-016 <small class="text-muted">(Token19 + Email + CVV + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-017" data-targeturl="verify+token19">swp-017 <small class="text-muted">(Token19 + CVV + Verify)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-018" data-targeturl="verify+token19">swp-018 <small class="text-muted">(Token19 + Email + Verify)</small></a>
-					<!-- <a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-019" data-targeturl="standard">swp-019 <small class="text-muted">(Plain)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-020" data-targeturl="standard">swp-020 <small class="text-muted">(Plain + Basic)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-021" data-targeturl="standard">swp-021 <small class="text-muted">(Plain + Email + CVV)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-022" data-targeturl="standard">swp-022 <small class="text-muted">(Plain + CVV)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-023" data-targeturl="standard">swp-023 <small class="text-muted">(Plain + Email)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-024" data-targeturl="standard">swp-024 <small class="text-muted">(Crypto)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-025" data-targeturl="standard">swp-025 <small class="text-muted">(Crypto + Basic)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-026" data-targeturl="standard">swp-026 <small class="text-muted">(Crypto + Email + CVV)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-027" data-targeturl="standard">swp-027 <small class="text-muted">(Crypto + CVV)</small></a>
-					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-028" data-targeturl="standard">swp-028 <small class="text-muted">(Crypto + Email)</small></a> -->
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-004" data-targeturl="verify">swp-004 <small class="text-muted">(Regular + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-005" data-targeturl="verify">swp-005 <small class="text-muted">(Basic + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-006" data-targeturl="verify">swp-006 <small class="text-muted">(Email + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-007" data-targeturl="verify">swp-007 <small class="text-muted">(CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-008" data-targeturl="verify">swp-008 <small class="text-muted">(Email + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-009" data-targeturl="ach+verify">swp-009 <small class="text-muted">(Checks + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-010" data-targeturl="verify+token19">swp-010 <small class="text-muted">(Token19 + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-011" data-targeturl="verify+token19">swp-011 <small class="text-muted">(Token19 + Email + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-012" data-targeturl="verify+token19">swp-012 <small class="text-muted">(Token19 + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item list-group-item-action lgi-slim" id="swp-013" data-targeturl="verify+token19">swp-013 <small class="text-muted">(Token19 + Email + Verify)</small></a>
 				</div>
 			</div>
 
 			<div class="col-sm-10 pl-0">
-				<div class="form-group mt-2 mb-2">
+				<div class="form-group my-2">
 					<div class="input-group input-group-sm">
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-sm" id="script" data-toggle="modal" data-target="#script-source-modal" disabled>

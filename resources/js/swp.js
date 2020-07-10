@@ -1,6 +1,7 @@
 $(".list-group-item").on("click", function () {
     var server = $("#server").val();
     var plugin = $("#plugin").val();
+    var recaptcha = $('#recaptcha').val();
     var file = $(this).attr("id");
     var options = $(this).attr("data-targeturl");
 
@@ -16,12 +17,12 @@ $(".list-group-item").on("click", function () {
     $(this).addClass("list-group-item-primary");
     $("#webpay-url").val("");
 
-    if ("" == server || "" == plugin) {
+    if ("" === server || "" === plugin || "" === recaptcha) {
         $("#alert").show();
     } else {
         var paramsUrl = "html/" + file + ".php";
         var urlBase = document.URL.substr(0, document.URL.lastIndexOf("/"));
-        var urlTail = "swp.php/" + server + "/" + options + "/" + file + ".php";
+        var urlTail = "swp.php/" + server + "/" + options + "+recaptcha" + recaptcha + "/" + file + ".php";
         var url = urlBase + "/" + urlTail;
 
         $.get(paramsUrl, function (data) {

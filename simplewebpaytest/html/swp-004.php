@@ -1,14 +1,13 @@
 <script type="text/javascript">
 	var params = "";
-	
-	params += "merchantid=wR476sD9f0B9ecI0%2FzPOWQ%3D%3D";
-	params += "&email=cenposqatest@gmail.com";
+
+	params += "verifyingpost=<?php echo urlencode($response->Data)?>";
 	params += "&customercode=swp001";
 	params += "&address=9048";
 	params += "&zipcode=33189";
 	params += "&isemail=false";
-	params += "&iscvv=true";
-	
+	params += "&iscvv=false";
+
 	$(document).ready(function()
 	{
 		$("#NewCenposPlugin").createWebpay(
@@ -21,8 +20,8 @@
 			success: formatResponse,
 			cancel: formatResponse
 		});
-		
-		$("#submit").on('click', function() 
+
+		$("#submit").on('click', function()
 		{
 			$("#NewCenposPlugin").submitAction();
 		});
