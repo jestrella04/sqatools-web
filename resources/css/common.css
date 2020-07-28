@@ -21,10 +21,19 @@
     right: 35%;
     margin: 3rem auto;
     width: 30%;
-    display: none;
     text-align: center;
 }
 
 .lgi-slim {
     padding: 0.3rem 0.7rem;
+    font-size: 0.9rem;
+}
+
+#footer {
+    font-size: 70%;
+    margin-top: 2rem;
+}
+
+#footer hr {
+    width: 70%;
 }

@@ -1,15 +1,26 @@
 if (window.location.protocol == "http:") {
-    var currentUrl = window.location.href.substr(5);
-    var secureUrl  = "https:" + currentUrl;
+    let currentUrl = window.location.href.substr(5);
+    let secureUrl  = "https:" + currentUrl;
 
     window.location.replace(secureUrl);
 }
 
-var currentYear = new Date().getFullYear();
+let currentYear = new Date().getFullYear();
+let currentYearDiv = document.querySelector('#current-year');
 
-$("#current-year").html(currentYear);
-$('[data-toggle="tooltip"]').tooltip();
+if (null !== currentYearDiv && 'undefined' !== currentYearDiv) {
+    currentYearDiv.innerHTML = currentYear;
+}
 
-$(".close").on("click", function () {
-    $("#alert").hide();
+document.addEventListener('click', (event) => {
+    let trigger = event.target;
+    let bubble = trigger.closest('button');
+
+    if (null !== bubble) {
+        trigger = bubble;
+    }
+
+    if (trigger.classList.contains('close')) {
+        document.querySelector('#alert').classList.add('d-none');
+    }
 });
