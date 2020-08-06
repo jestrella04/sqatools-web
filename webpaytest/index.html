@@ -32,7 +32,6 @@
 					<select class="form-control form-control-sm" id="plugin">
 						<option value="" selected disabled>--- Plugin ---</option>
 						<option value="2.3">Version 2.3</option>
-						<option value="2.2">Version 2.2</option>
 					</select>
 				</div>
 
@@ -58,6 +57,14 @@
 
 				<div class="form-group mt-2 mb-2 integration d-none">
 					<input type="text" class="form-control form-control-sm" id="invoice" placeholder="Enter an invoice" autocomplete="off">
+				</div>
+
+				<div class="form-group mt-2 mb-2 integration d-none">
+					<input type="text" class="form-control form-control-sm" id="address" placeholder="Enter an address" autocomplete="off">
+				</div>
+
+				<div class="form-group mt-2 mb-2 integration d-none">
+					<input type="text" class="form-control form-control-sm" id="zip" placeholder="Enter a zip code" autocomplete="off">
 				</div>
 
 				<div class="list-group webpay-list-group">
@@ -118,7 +125,7 @@
 				</div>
 
 				<div id="webpay-container">
-					<div id="webpay-response"></div>
+					<div id="webpay-response" class="d-none"></div>
 					<iframe id="webpay"></iframe>
 				</div>
 			</div>

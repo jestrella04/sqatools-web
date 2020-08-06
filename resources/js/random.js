@@ -1,3 +1,11 @@
+function getFormattedDate(currentDate, separator = '') {
+    let mm = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    let dd = ('0' + (currentDate.getDate())).slice(-2);
+    let y4 = currentDate.getFullYear().toString();
+
+    return [mm, dd, y4].join(separator);
+}
+
 function combineArrayToString (args) {
     var object = Object.values(args.object) || null;
     var columnDelimiter = args.columnDelimiter || ',';
@@ -95,7 +103,7 @@ function ebppbuStandardInvoice(args) {
     var lineItemMax = parseInt(args.lineItemMax);
     var amountMax = args.amountMax;
     var currentDate = new Date();
-    var formatDate = ('0' + (currentDate.getMonth() + 1)).slice(-2) + currentDate.getDate().toString() + currentDate.getFullYear().toString();
+    var formatDate = getFormattedDate(currentDate);
     var invoice = {};
 
     invoice.header = {};
@@ -165,7 +173,7 @@ function ebppbuKellyTractorInvoice(args) {
     var email = args.email;
     var amountMax = args.amountMax;
     var currentDate = new Date();
-    var formatDate = ('0' + (currentDate.getMonth() + 1)).slice(-2) + '/' + currentDate.getDate().toString() + '/' + currentDate.getFullYear().toString();
+    var formatDate = getFormattedDate(currentDate, '/');
     var invoiceAmount = chance.dollar({ max: amountMax }).replace('$', '');
     var invoice = {};
 
@@ -281,7 +289,7 @@ function level3Information (args) {
     var lineItemAmountMax = args.lineItemAmountMax || 999.99
     var level3Object = {};
     var currentDate = new Date();
-    var formatDate = ('0' + (currentDate.getMonth() + 1)).slice(-2) + currentDate.getDate().toString() + currentDate.getFullYear().toString();
+    var formatDate = formatDate(currentDate);
 
     // Generate header
     level3Object.LevelIIIData = {}

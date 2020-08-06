@@ -13,8 +13,10 @@ document.addEventListener('click', (event) => {
         let integrated = document.querySelector('#integrated').value;
         let alert = document.querySelector('#alert');
         let testCase = trigger.attributes['id'].value;
+        let response = document.querySelector('#webpay-response');
 
         alert.classList.add('d-none');
+        response.classList.add('d-none');
 
         document.querySelectorAll('.list-group-item').forEach((item) => {
             item.classList.remove('list-group-item-primary');
@@ -34,6 +36,8 @@ document.addEventListener('click', (event) => {
             let clientId = document.querySelector('#client-id').value;
             let email = document.querySelector('#email').value;
             let invoice = document.querySelector('#invoice').value;
+            let address = document.querySelector('#address').value;
+            let zip = document.querySelector('#zip').value;
 
             // append parameters (if integrated)
             if ('true' === integrated) {
@@ -51,6 +55,14 @@ document.addEventListener('click', (event) => {
     
                 if ('' !== invoice) {
                     params.append('invoice', invoice);
+                }
+
+                if ('' !== address) {
+                    params.append('address', address);
+                }
+
+                if ('' !== zip) {
+                    params.append('zip', zipc054049);
                 }
 
                 url = url + '?' + params.toString();

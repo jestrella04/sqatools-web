@@ -40,11 +40,13 @@
 
 	function callbackReal(data, type, src)
 	{
-		var str = '<strong>' + type + '</strong><hr class="hr-xs"><pre><code>' + JSON.stringify(data, undefined, 2) + '</code></pre>';
+		let str = '<strong>' + type + '</strong><hr class="hr-xs"><pre><code>' + JSON.stringify(data, undefined, 2) + '</code></pre>';
+		let webpay = top.window.document.querySelector('#webpay');
+		let response = top.window.document.querySelector('#webpay-response');
 
-		top.$('#webpay-response').empty();
-		top.$('#webpay-response').append(str);
-		top.$('#webpay-response').show();
-		top.$('#webpay').attr('src', src);
+		response.innerHtml = '';
+		response.insertAdjacentHTML('beforeend', str);
+		response.classList.remove('d-none');
+		webpay.removeAttribute('src');
 	}
 </script>

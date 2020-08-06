@@ -41,11 +41,6 @@ if ('staging' == $environment) {
 	$webpay_path = null;
 }
 
-// Validate plugin version
-/*if (!is_numeric($plugin)) {
-	$plugin = null;
-}*/
-
 // Validate file exists
 if (!file_exists('html/' . $testcase)) {
 	$testcase = null;
@@ -63,8 +58,10 @@ $email = $_GET['email'] ?? '';
 $clientId = $_GET['client_id'] ?? '';
 $amount = $_GET['amount'] ?? '';
 $invoice = $_GET['invoice'] ?? '';
+$address = $_GET['address'] ?? '';
+$zip = $_GET['zip'] ?? '';
 $postUrl = $webpay_path . "?app=genericcontroller&action=siteVerify";
-$postParams = "amount=$amount&secretkey=$aesKey&merchant=$apiKey&email=$email&ip=$ip&customercode=$clientId&invoice=$invoice";
+$postParams = "amount=$amount&secretkey=$aesKey&merchant=$apiKey&email=$email&ip=$ip&customercode=$clientId&invoice=$invoice&address=$address&zipcode=$zip";
 
 // Initialize cURL
 $ch = curl_init($postUrl);
