@@ -1,2 +1,5 @@
-
-integrator/getresponse/log.sqlite
+node_modules
+tools/integrator/getresponse/log.sqlite
+resources/css/bundle.css
+resources/js/main.bundle.js
+resources/js/jquery.bundle.js

@@ -289,7 +289,7 @@ function level3Information (args) {
     var lineItemAmountMax = args.lineItemAmountMax || 999.99
     var level3Object = {};
     var currentDate = new Date();
-    var formatDate = formatDate(currentDate);
+    var formatDate = getFormattedDate(currentDate);
 
     // Generate header
     level3Object.LevelIIIData = {}
@@ -337,101 +337,141 @@ function level3Information (args) {
     return level3Object;
 }
 
-$('.btn-hide-datagen, .link-hide-datagen').on('click', function (e) {
-    e.preventDefault();
-    $('.form-datagen').addClass('d-none');
-});
+document.addEventListener('click', (event) => {
+    let trigger = event.target;
+    let bubble = trigger.closest('button, a, .btn');
+    let triggerId = '';
 
-$('#link-show-string').on('click', function (e) {
-    e.preventDefault();
-    $('#form-datagen-string').removeClass('d-none');
-});
+    if (null !== bubble) {
+        trigger = bubble;
+    }
 
-$('#link-show-ebppbu').on('click', function (e) {
-    e.preventDefault();
-    $('#form-datagen-ebppbu').removeClass('d-none');
-});
+    if (null !== trigger.attributes['id'] && undefined !== trigger.attributes['id']) {
+        triggerId = trigger.attributes['id'].value;
+    }
 
-$('#link-show-level3').on('click', function (e) {
-    e.preventDefault();
-    $('#form-datagen-level3').removeClass('d-none');
-});
+    if (trigger.classList.contains('btn-hide-datagen') || trigger.classList.contains('link-hide-datagen')) {
+        event.preventDefault();
 
-$('#form-datagen-string').on('submit', function (e) {
-    e.preventDefault();
+        document.querySelectorAll('.form-datagen').forEach((datagen) => {
+            datagen.classList.add('d-none');
+        });
+    }
 
-    var random = placeholderReplace($('#textarea-gen').val());
-    $('#textarea-get').val(random);
-});
+    if ('link-show-string' === triggerId) {
+        event.preventDefault();
+        document.querySelector('#form-datagen-string').classList.remove('d-none');
+    }
 
-$('#input-ebppbu-format').on('change', function () {
-    var currentVal = $(this).val();
+    if ('link-show-ebppbu' === triggerId) {
+        event.preventDefault();
+        document.querySelector('#form-datagen-ebppbu').classList.remove('d-none');
+    }
 
-    if ('stf' == currentVal) {
-        // Enable the line item fields
-        $('#input-ebppbu-mid').attr('disabled', false);
-        $('#input-ebppbu-lineitemmin').attr('disabled', false);
-        $('#input-ebppbu-lineitemmax').attr('disabled', false);
-
-        // Unhide the fields
-        $('#input-ebppbu-mid').parent().parent().removeClass('d-none');
-        $('#input-ebppbu-lineitemmin').parent().parent().removeClass('d-none');
-        $('#input-ebppbu-lineitemmax').parent().parent().removeClass('d-none');
-    } else {
-        // Disable the line item fields
-        $('#input-ebppbu-mid').attr('disabled', 'disabled');
-        $('#input-ebppbu-lineitemmin').attr('disabled', 'disabled');
-        $('#input-ebppbu-lineitemmax').attr('disabled', 'disabled');
-
-        // Hide the fields
-        $('#input-ebppbu-mid').parent().parent().addClass('d-none');
-        $('#input-ebppbu-lineitemmin').parent().parent().addClass('d-none');
-        $('#input-ebppbu-lineitemmax').parent().parent().addClass('d-none');
+    if ('link-show-level3' === triggerId) {
+        event.preventDefault();
+        document.querySelector('#form-datagen-level3').classList.remove('d-none');
     }
 });
 
-$('#form-datagen-ebppbu').on('submit', function (e) {
-    e.preventDefault();
-    var exportFormat = $('#input-ebppbu-format').val();
+document.addEventListener('submit', (event) => {
+    let trigger = event.target;
+    let triggerId = '';
 
-    // Generate the raw EBPP BU object
-    var exportObject = ebppbuInvoiceCollection({
-        format: exportFormat,
-        merchantId: $('#input-ebppbu-mid').val(),
-        invoiceCount: $('#input-ebppbu-invcount').val(),
-        email: $('#input-ebppbu-email').val(),
-        lineItemMin: $('#input-ebppbu-lineitemmin').val(),
-        lineItemMax: $('#input-ebppbu-lineitemmax').val(),
-        amountMax: $('#input-ebppbu-amountmax').val()
-    });
+    if (null !== trigger.attributes['id'] && undefined !== trigger.attributes['id']) {
+        triggerId = trigger.attributes['id'].value;
+    }
 
-    // Convert the raw object to CSV
-    exportObject = ebppbuInvoiceCollectionToCsv({
-        format: exportFormat,
-        object: exportObject
-    });
+    if ('form-datagen-ebppbu' === triggerId) {
+        event.preventDefault();
 
-    // Download the CSV file
-    downloadFile({
-        fileName: 'ebppbu-' + exportFormat + '-' + chance.hash() + '.csv',
-        fileContents: exportObject,
-        fileType: 'text/csv'
-    });
+        let exportFormat = document.querySelector('#input-ebppbu-format').value;
+
+        // Generate the raw EBPP BU object
+        let exportObject = ebppbuInvoiceCollection({
+            format: exportFormat,
+            merchantId: document.querySelector('#input-ebppbu-mid').value,
+            invoiceCount: document.querySelector('#input-ebppbu-invcount').value,
+            email: document.querySelector('#input-ebppbu-email').value,
+            lineItemMin: document.querySelector('#input-ebppbu-lineitemmin').value,
+            lineItemMax: document.querySelector('#input-ebppbu-lineitemmax').value,
+            amountMax: document.querySelector('#input-ebppbu-amountmax').value
+        });
+
+        // Convert the raw object to CSV
+        exportObject = ebppbuInvoiceCollectionToCsv({
+            format: exportFormat,
+            object: exportObject
+        });
+
+        // Download the CSV file
+        downloadFile({
+            fileName: ['ebppbu', exportFormat, chance.hash()].join('-') + '.csv',
+            fileContents: exportObject,
+            fileType: 'text/csv'
+        });
+    }
+
+    if ('form-datagen-level3' === triggerId) {
+        event.preventDefault();
+
+        let lineItems = document.querySelector('#input-level3-lineitems').value;
+        let lineItemAmountMax = document.querySelector('#input-level3-amountmax').value;
+        let level3Object = level3Information({
+            lineItems: lineItems,
+            lineItemAmountMax: lineItemAmountMax
+        });
+
+        // Create x2js instance with default config
+        let x2js = new X2JS();
+        let xml = x2js.json2xml_str(level3Object);
+
+        // Display/Set the xml representation of the Level 3 object
+        document.querySelector('#input-level3-xml').value = xml;
+    }
+
+    if ('form-datagen-string' === triggerId) {
+        event.preventDefault();
+
+        let random = placeholderReplace(document.querySelector('#textarea-gen').value);
+        document.querySelector('#textarea-get').value = random;
+    }
 });
 
-$('#form-datagen-level3').on('submit', function (e) {
-    e.preventDefault();
+document.addEventListener('change', (event) => {
+    let trigger = event.target;
+    let triggerId = '';
+    let triggerVal = trigger.value;
 
-    var lineItems = $('#input-level3-lineitems').val();
-    var lineItemAmountMax = $('#input-level3-amountmax').val();
-    var level3Object = level3Information({
-        lineItems: lineItems,
-        lineItemAmountMax: lineItemAmountMax
-    });
+    if (null !== trigger.attributes['id'] && undefined !== trigger.attributes['id']) {
+        triggerId = trigger.attributes['id'].value;
+    }
 
-    // Create x2js instance with default config
-    var x2js = new X2JS();
-    var xml = x2js.json2xml_str(level3Object);
+    if ('input-ebppbu-format' === triggerId) {
+        document.querySelector('#btn-submit-ebppbu-form').classList.remove('disabled');
 
-    $('#input-level3-xml').val(xml);
+        if ('stf' == triggerVal) {
+            document.querySelectorAll('.ebppbu-common, .ebppbu-stf').forEach((stf) => {
+                stf.querySelector('.form-control').disabled = false;
+                stf.classList.remove('d-none');
+            });
+
+            document.querySelectorAll('.ebppbu-ktf').forEach((ktf) => {
+                ktf.querySelector('.form-control').disabled = true;
+                ktf.classList.add('d-none');
+            });
+        }
+
+        else if ('ktf' == triggerVal) {
+            document.querySelectorAll('.ebppbu-common, .ebppbu-ktf').forEach((ktf) => {
+                ktf.querySelector('.form-control').disabled = false;
+                ktf.classList.remove('d-none');
+            });
+
+            document.querySelectorAll('.ebppbu-stf').forEach((stf) => {
+                stf.querySelector('.form-control').disabled = true;
+                stf.classList.add('d-none');
+            });
+        }
+    }
 });

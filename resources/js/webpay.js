@@ -68,7 +68,6 @@ document.addEventListener('click', (event) => {
                 url = url + '?' + params.toString();
             }
 
-            //document.querySelector('#script').removeAttribute('disabled');
             document.querySelector('#webpay').src = url;
             document.querySelector('#webpay-url').value = url;
         }

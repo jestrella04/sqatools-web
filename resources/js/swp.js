@@ -1,36 +1,53 @@
-$(".list-group-item").on("click", function () {
-    var server = $("#server").val();
-    var plugin = $("#plugin").val();
-    var recaptcha = $('#recaptcha').val();
-    var file = $(this).attr("id");
-    var options = $(this).attr("data-targeturl");
+document.addEventListener('click', (event)=> {
+    let trigger = event.target;
+    let bubble = trigger.closest('button, a, .btn');
 
-    if ("object" == plugin) {
-        options = options + "+object";
+    if (null !== bubble) {
+        trigger = bubble;
     }
 
-    $("#alert").hide();
-    $("#script").attr("disabled", "disabled");
-    $("#webpay").empty();
-    $("#webpay-response").empty();
-    $(".list-group-item").removeClass("list-group-item-primary");
-    $(this).addClass("list-group-item-primary");
-    $("#webpay-url").val("");
+    if (trigger.classList.contains('list-group-item')) {
+        event.preventDefault();
 
-    if ("" === server || "" === plugin || "" === recaptcha) {
-        $("#alert").show();
-    } else {
-        var paramsUrl = "html/" + file + ".php";
-        var urlBase = document.URL.substr(0, document.URL.lastIndexOf("/"));
-        var urlTail = "swp.php/" + server + "/" + options + "+recaptcha" + recaptcha + "/" + file + ".php";
-        var url = urlBase + "/" + urlTail;
+        let alert = document.querySelector('#alert');
+        let server = document.querySelector('#server').value;
+        let plugin = document.querySelector('#plugin').value;
+        let recaptcha = document.querySelector('#recaptcha').value;
+        let file = trigger.attributes['id'].value;
+        let options = trigger.attributes['data-targeturl'].value;
 
-        $.get(paramsUrl, function (data) {
-            $("#script-source-body").text(data);
+        if ('object' == plugin) {
+            options = options + '+object';
+        }
+
+        document.querySelector('#alert').classList.remove('d-none');
+        document.querySelector('#script').disabled = true;
+        document.querySelector('#webpay').innerHTML = '';
+        document.querySelector('#webpay-response').innerHTML = '';
+        document.querySelector('#webpay-url').value = '';
+        document.querySelectorAll('.list-group-item').forEach((listGroup) => {
+            listGroup.classList.remove('list-group-item-primary');
         });
 
-        $("#script").removeAttr("disabled");
-        $("#webpay").attr("src", urlTail);
-        $("#webpay-url").val(url);
+        trigger.classList.add('list-group-item-primary');
+
+        if ('' === server || '' === plugin || '' === recaptcha) {
+            alert.classList.remove('d-none');
+        } else {
+            let paramsUrl = ['html/', file, '.php'].join('');
+            let urlBase = document.URL.substr(0, document.URL.lastIndexOf('/'));
+            let urlTail = ['swp.php/', server, '/', options, '+recaptcha' + recaptcha, '/', file, '.php'].join('');
+            let url = [urlBase, urlTail].join('/');
+
+            alert.classList.add('d-none');
+
+            /* $.get(paramsUrl, function (data) {
+                document.querySelector('#script-source-body').textContent = data;
+            }); */
+
+            document.querySelector('#script').disabled = false;
+            document.querySelector('#webpay').src = urlTail;
+            document.querySelector('#webpay-url').value = url;
+        }
     }
 });

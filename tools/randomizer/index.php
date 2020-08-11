@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Random data generator for CenPOS related tasks">
-	<meta name="author" content="Jonathan Estrella">
-	<link rel="icon" href="../resources/icons/qa.png">
 
-	<title>Randomizer - QA Tools</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous">
-	<link rel="stylesheet" href="../resources/css/random.css">
-</head>
+<?php
+	$app = [
+		'id' => 'randomizer',
+		'name' => 'Randomizer',
+		'description' => 'Random data generator for CenPOS apps',
+		'logo' => 'qa.png',
+		'logo_type' => 'image/png',
+		'jquery' => true,
+	];
 
-<body>
-	<div id="container-random" class="container">
+	require '../../resources/views/header.php';
+?>
+
+<body id="app-randomizer">
+	<div class="container">
         <div id="list-datagen">
             <div class="text-center">
                 <legend>Available Data Generators</legend>
@@ -70,14 +70,14 @@
 
                 <div class="col-sm-10">
                     <select class="form-control" id="input-ebppbu-format" required>
-                        <option value="">-- SELECT --</option>
+                        <option value="" selected disabled>-- SELECT --</option>
                         <option value="stf">Standard</option>
                         <option value="ktf">Kelly Tractor</option>
                     </select>
                 </div>
             </div>
             
-            <div class="form-group row d-none">
+            <div class="form-group row ebppbu-stf d-none">
               <label for="input-ebppbu-mid" class="col-sm-2 col-form-label">Merchant ID</label>
 
               <div class="col-sm-10">
@@ -85,24 +85,24 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row ebppbu-common d-none">
                 <label for="input-ebppbu-email" class="col-sm-2 col-form-label">Email</label>
 
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="input-ebppbu-email" required>
-                    <small class="form-text text-muted">You can use the predefined placeholders to generate a random email per invoice.</small>
+                    <input type="email" class="form-control" id="input-ebppbu-email" required disabled>
+                    <small class="form-text text-muted">You can use the predefined placeholders to generate a random unique email per invoice.</small>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row ebppbu-common d-none">
                 <label for="input-ebppbu-invcount" class="col-sm-2 col-form-label"># of Invoices</label>
 
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="input-ebppbu-invcount" step="1" min="1" value="100" required>
+                    <input type="number" class="form-control" id="input-ebppbu-invcount" step="1" min="1" value="100" required disabled>
                 </div>
             </div>
 
-            <div class="form-group row d-none">
+            <div class="form-group row ebppbu-stf d-none">
                 <label for="input-ebppbu-lineitemmin" class="col-sm-2 col-form-label">Line items min</label>
 
                 <div class="col-sm-10">
@@ -110,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="form-group row d-none">
+            <div class="form-group row ebppbu-stf d-none">
                 <label for="input-ebppbu-lineitemmax" class="col-sm-2 col-form-label">Line items max</label>
 
                 <div class="col-sm-10">
@@ -118,18 +118,28 @@
                 </div> 
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row ebppbu-common d-none">
                 <label for="input-ebppbu-amountmax" class="col-sm-2 col-form-label">Amount max</label>
 
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="input-ebppbu-amountmax" step="0.01" min="1" value="999.99" required>
+                    <input type="number" class="form-control" id="input-ebppbu-amountmax" step="0.01" min="1" value="999.99" required disabled>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-lg btn-primary">Generate CSV</button>
-                    <button type="cancel" class="btn btn-lg btn-danger btn-hide-datagen">Cancel</button>
+                    <button 
+                        id="btn-submit-ebppbu-form" 
+                        type="submit" 
+                        class="btn btn-lg btn-primary">
+                        Generate CSV
+                    </button>
+
+                    <button id="btn-cancel-ebppbu-form"
+                        type="cancel" 
+                        class="btn btn-lg btn-danger btn-hide-datagen">
+                        Cancel
+                    </button>
                 </div>
             </div>
         </form>
@@ -174,22 +184,6 @@
         </form>
 	</div>
 
-	<footer class="footer">
-        <div class="container">
-            <hr>
-            <p class="text-muted text-center">
-                &copy; <span id="current-year"></span> CenPOS, Inc.<br>
-                All rights reserved
-            </p>
-        </div>
-	</footer>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.0/chance.min.js" integrity="sha256-+bo9VPNB85DWg5DKk5YGyHqCd4zCK4fjnhD9hSIM/aI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js" integrity="sha256-RbFvov4fXA9DW/RzOAcIC0ZHIDmghGdsoug5slJHMMI=" crossorigin="anonymous"></script>
-    <script src="../resources/js/common.js"></script>
-    <script src="../resources/js/random.js"></script>
+	<?php require '../../resources/views/footer.php' ?>
 </body>
 </html>

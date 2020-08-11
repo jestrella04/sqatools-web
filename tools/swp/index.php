@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Simple Webpay test manager">
-	<meta name="author" content="Jonathan Estrella">
-	<link rel="icon" href="../integrator/assets/img/favicon.png">
+<?php
+	$app = [
+		'id' => 'swp',
+		'name' => 'Simple Webpay Tester',
+		'description' => 'Simple Webpay tester application',
+		'logo' => 'web.png',
+		'logo_type' => 'image/png',
+		'jquery' => true,
+	];
 
-	<title>Simple Webpay Test Tool - QA Tools</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-	<link rel="stylesheet" href="../resources/css/common.css">
-	<link rel="stylesheet" href="../resources/css/swp.css">
-</head>
+	require '../../resources/views/header.php';
+?>
 
-<body>
+<body id="app-swp">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2">
 				<div class="form-group mt-2 mb-0">
 					<select class="form-control form-control-sm custom-select" id="server">
-						<option value=""> ------ Server ------ </option>
+						<option value="" selected disabled> ------ Server ------ </option>
 						<option value="miami3">Production</option>
 						<option value="staging">Staging</option>
 					</select>
@@ -30,7 +28,7 @@
 
 				<div class="form-group my-2">
 					<select class="form-control form-control-sm custom-select" id="plugin">
-						<option value=""> ------ Plugin ------ </option>
+						<option value="" selected disabled> ------ Plugin ------ </option>
 						<option value="iframe">Iframe</option>
 						<option value="object">Object</option>
 					</select>
@@ -38,7 +36,7 @@
 
 				<div class="form-group my-2">
 					<select class="form-control form-control-sm custom-select" id="recaptcha">
-						<option value=""> ------ Recaptcha ------ </option>
+						<option value="" selected disabled> ------ Recaptcha ------ </option>
 						<option value="disabled">Disabled</option>
 						<option value="v2">v2</option>
 						<option value="v3">v3</option>
@@ -75,7 +73,7 @@
 					</div>
 				</div>
 
-				<div class="alert alert-danger" role="alert" id="alert">
+				<div class="alert alert-danger d-none" role="alert" id="alert">
 					<a href="#" class="close alert-link">&times;</a>
 
 					<strong>Please select a valid environment and plugin</strong>
@@ -92,13 +90,7 @@
 		</div>
 	</div>
 
-	<div id="footer" class="container-fluid">
-		<hr>
-		<p class="text-muted text-center">
-			&copy; <span id="current-year"></span> CenPOS, Inc.<br>
-			All rights reserved
-		</p>
-	</div>
+	<?php require '../../resources/views/footer.php' ?>
 
 	<div class="modal fade" id="script-source-modal" tabindex="-1" role="dialog" aria-labelledby="scriptSourceModal">
 		<div class="modal-dialog" role="document">
@@ -115,11 +107,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="../resources/js/common.js"></script>
-	<script src="../resources/js/swp.js"></script>
 </body>
 </html>
