@@ -9,19 +9,28 @@ module.exports = (env, argv) => {
             main: './resources/js/index.js',
             jquery: './resources/js/jquery.js',
         },
-        
+
         output: {
             filename: '[name].bundle.js',
             path: path.resolve(__dirname, 'resources/js'),
         },
 
-        plugins: [new MiniCssExtractPlugin({filename: "../css/bundle.css", chunkFilename: "[id].css"})],
-        
+        plugins: [new MiniCssExtractPlugin({ filename: "../css/bundle.css", chunkFilename: "[id].css" })],
+
         module: {
             rules: [
                 {
                     test: /\.s[ac]ss$/i,
-                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                url: false,
+                            }
+                        },
+                        'sass-loader',
+                    ],
                 },
             ],
         },
