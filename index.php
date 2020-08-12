@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="QA Tools index page">
-	<meta name="author" content="Jonathan Estrella">
-	<link rel="icon" href="resources/icons/qa.png">
+	
+<?php
+	$app = [
+		'id' => 'index',
+		'name' => 'Application List',
+		'description' => 'QA Tools index page',
+		'logo' => 'qa.png',
+		'logo_type' => 'image/png',
+		'jquery' => false,
+	];
 
-	<title>QA Tools</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous">
-	<style type="text/css">
-		.title {margin: 2rem 0;}
-		.card {margin-bottom: 1rem;}
-		.card-title {margin-bottom: 0;}
-		.card-column-title {font-weight: 700; font-size: 115%; margin: 0;}
-		#global-filter-clear {cursor: pointer;}
-		#footer {font-size: 75%; margin-top: 2rem;}
-	</style>
-</head>
+	require 'resources/views/header.php';
+?>
 
-<body>
+<body id="app-list">
 	<div class="container">
 		<div class="row title">
 			<div class="col-sm-6">
-				<h4>CenPOS QA Tools and Application Links</h4>
+				<h4>QA Tools and Application Links</h4>
 			</div>
 
 			<div class="col-sm-6">
@@ -196,29 +189,5 @@
 			All rights reserved
 		</p>
 	</div>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
-	<script src="../resources/js/common.js"></script>
-	<script type="text/javascript">
-		$("#global-filter-clear").on("click", function () {
-			$("#global-filter-input").val("").focus().trigger("keydown");
-		});
-
-		$("#global-filter-input").on("keydown", function () {
-			var filter = $(this).val();
-
-			$(".qa-item").hide();
-
-			$(".qa-item-group .qa-item").each(function () {
-				var item = $(this);
-
-				if (item.text().toLowerCase().includes(filter.toLowerCase())) {
-					item.show();
-				}
-			});
-		});
-	</script>
 </body>
 </html>

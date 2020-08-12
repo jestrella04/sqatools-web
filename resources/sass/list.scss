@@ -1,0 +1,23 @@
+#app-list {
+    .title {
+        margin: 2rem 0;
+    }
+
+	.card {
+        margin-bottom: 1rem;
+    }
+
+	.card-title {
+        margin-bottom: 0;
+    }
+
+    .card-column-title {
+        font-weight: 700; 
+        font-size: 115%; 
+        margin: 0;
+    }
+
+    #global-filter-clear {
+        cursor: pointer;
+    }
+}
