@@ -6,7 +6,9 @@ document.addEventListener('click', (event) => {
         trigger = bubble;
     }
 
-    if (trigger.classList.contains('list-group-item')) {
+    if (trigger.classList.contains('webpay-testcase')) {
+        event.preventDefault();
+        
         let merchant = trigger.attributes['data-merchantid'].value;
         let server = document.querySelector('#server').value;
         let plugin = document.querySelector('#plugin').value;

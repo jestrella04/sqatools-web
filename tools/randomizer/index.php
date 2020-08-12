@@ -8,7 +8,7 @@
 		'description' => 'Random data generator for CenPOS apps',
 		'logo' => 'qa.png',
 		'logo_type' => 'image/png',
-		'jquery' => true,
+		'jquery' => false,
 	];
 
 	require '../../resources/views/header.php';

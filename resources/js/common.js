@@ -1,10 +1,3 @@
-if (window.location.protocol == "http:") {
-    let currentUrl = window.location.href.substr(5);
-    let secureUrl  = "https:" + currentUrl;
-
-    window.location.replace(secureUrl);
-}
-
 let currentYear = new Date().getFullYear();
 let currentYearDiv = document.querySelector('#current-year');
 
@@ -21,6 +14,8 @@ document.addEventListener('click', (event) => {
     }
 
     if (trigger.classList.contains('close')) {
+        event.preventDefault();
+        
         document.querySelector('#alert').classList.add('d-none');
     }
 });

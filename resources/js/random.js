@@ -1,3 +1,7 @@
+var Chance = require('chance');
+var X2JS = require('x2js');
+var chance = new Chance();
+
 function getFormattedDate(currentDate, separator = '') {
     let mm = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     let dd = ('0' + (currentDate.getDate())).slice(-2);
@@ -424,7 +428,7 @@ document.addEventListener('submit', (event) => {
 
         // Create x2js instance with default config
         let x2js = new X2JS();
-        let xml = x2js.json2xml_str(level3Object);
+        let xml = x2js.js2xml(level3Object);
 
         // Display/Set the xml representation of the Level 3 object
         document.querySelector('#input-level3-xml').value = xml;

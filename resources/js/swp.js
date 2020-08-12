@@ -6,7 +6,7 @@ document.addEventListener('click', (event)=> {
         trigger = bubble;
     }
 
-    if (trigger.classList.contains('list-group-item')) {
+    if (trigger.classList.contains('swp-testcase')) {
         event.preventDefault();
 
         let alert = document.querySelector('#alert');
