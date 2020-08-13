@@ -11,6 +11,10 @@
         margin-bottom: 0;
     }
 
+    .card-header {
+        padding: 0.5rem 0.9rem;
+    }
+
     .card-column-title {
         font-weight: 700; 
         font-size: 115%; 
@@ -20,4 +24,18 @@
     #global-filter-clear {
         cursor: pointer;
     }
+
+    .qa-item-group {
+		.list-group-item {
+			padding: 0.3rem 0.7rem;
+			font-size: 0.9rem;
+			cursor: pointer;
+			text-decoration: none;
+			color: $body-color;
+		}
+
+		.list-group-item:hover {
+            background-color: $gray-100;
+        }
+	}
 }

@@ -23,15 +23,21 @@ module.exports = (env, argv) => {
                     test: /\.s[ac]ss$/i,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                url: false,
-                            }
-                        },
+                        'css-loader',
                         'sass-loader',
                     ],
                 },
+
+                {
+                    test: /\.(svg|eot|ttf|woff|woff2)$/i,
+                    use: {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: '../fonts'
+                        }
+                    },
+                }
             ],
         },
     }

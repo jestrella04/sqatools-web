@@ -1,5 +1,6 @@
 node_modules
 tools/integrator/getresponse/log.sqlite
+resources/fonts/*
 resources/css/bundle.css
 resources/js/main.bundle.js
 resources/js/jquery.bundle.js
