@@ -1,31 +1,20 @@
 <html>
-<head>
-	<title>Integrations Test Tool - QA Tools</title>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="cache-control" content="private">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Tool to test CenPOS integrations">
-	<meta name="author" content="Jonathan Estrella">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="robots" content="none">
-	<meta name="expires" content="wed, 01 Jan 2030">
+<?php
+	$app = [
+		'id' => 'integrator',
+		'name' => 'Integrator',
+		'description' => 'Tool to test CenPOS integrations',
+		'logo' => 'integ.png',
+		'logo_type' => 'image/png',
+		'jquery' => false,
+	];
 
-	<link rel="icon" sizes="32x32" href="../resources/icons/integ.png" type="image/png">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous">
-	<link rel="stylesheet" href="static/css/main.css">
-	<!--<link rel="manifest" href="manifest.json">-->
-</head>
+	require '../../resources/views/header.php';
+?>
 
-<body>
-	<div id="loading-container" class="container-fluid">
-		<img src="static/img/loading.gif" alt="Loading...">
-		<h2>Please bear with me while I get things ready for you!</h2>
-	</div>
-
-	<div id="full-container" class="container-fluid d-none">
+<body id="app-integrator">
+	<div id="full-container" class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 mt-2">
 				<div class="form-group row">
@@ -148,13 +137,7 @@
 		</div>
 	</div>
 
-	<div id="footer" class="container-fluid">
-		<hr>
-		<p class="text-muted text-center">
-			&copy; <span id="current-year"></span> CenPOS, Inc.<br>
-			All rights reserved
-		</p>
-	</div>
+	<?php require '../../resources/views/footer.php' ?>
 
 	<div class="modal fade" id="query-string-modal" tabindex="-1" role="dialog" aria-labelledby="queryStringModal">
 		<div class="modal-dialog" role="document">
@@ -174,11 +157,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="static/js/main.js"></script>
 </body>
 </html>

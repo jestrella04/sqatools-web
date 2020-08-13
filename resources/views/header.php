@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?php echo isset($app['description']) ? $app['description'] . ' - ' : '' ?>">
     <meta name="author" content="Jonathan Estrella">
+    <meta name="expires" content="wed, 01 Jan 2030">
 
     <title><?php echo isset($app['name']) ? $app['name'] . ' - ' : '' ?>SQA Web Tools</title>
 

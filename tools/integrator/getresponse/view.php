@@ -48,5 +48,5 @@ $high = $p * $limit;
         </a>
     </div>
 
-    <?php include('nav.php') ?>
+    <?php include('pagination.php') ?>
 </div>
