@@ -1,84 +1,4 @@
-var integrator = {};
-
-$.when(
-	$.getJSON("static/json/applications.json"),
-	$.getJSON("static/json/parameters.json"),
-	$.getJSON("static/json/transactions.json")
-).then(function (applications, parameters, transactions) {
-	integrator.applications = applications[0];
-	integrator.parameters = parameters[0]["param"];
-	integrator.transactions = transactions[0];
-
-	populateApplicationSelectBox();
-	populateParameterList();
-	retrieveParamsLocalStorage();
-
-	$("#loading-container").fadeOut(3000);
-	$("#full-container").removeClass("d-none");
-});
-
-$('#query-string-submit').on('click', function () {
-	$("#query-string-modal").modal("hide");
-
-	getQueryStringParameters();
-});
-
-$("#query-string-input").keypress(function (e) {
-	if (e.which == 13) {
-		e.preventDefault();
-		$("#query-string-submit").click();
-	}
-});
-
-$('#integration-loader-button').on('click', function () {
-	$('#integration-inline-response').parent().parent().addClass('d-none');
-	$('.iframe-container').removeClass('d-none');
-
-	loadIntegrationObject();
-});
-
-$(".sortable").sortable({
-	axis: "y",
-	cursor: "move",
-	connectWith: '.sortable',
-	opacity: 0.5,
-}).disableSelection();
-
-$("#input-filter-params").on('keydown', function () {
-	var filter = $(this).val();
-
-	$('#form-params-available .form-group-param').hide();
-
-	$("#form-params-available .form-group-param label").each(function () {
-		var label = $(this).text();
-
-		if (label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
-			$(this).parent().show();
-		}
-	});
-});
-
-$('#application-select-input').on('change', function () {
-	populateEnvironmentSelectBox();
-	populateTransactionSelectBox();
-});
-
-$('#clear-used-button').on('click', function () {
-	clearUsedParametersList();
-});
-
-window.addEventListener('message', function (event) {
-	// Proceed if the posted message is the CenPOSResponse message
-	if (event.data && event.data.type === 'CenPOSResponse') {
-		var responseData = '<strong>STRING</strong><hr class="hr-xs"><pre><code>' + JSON.stringify(event.data.data, undefined, 2) + '</code></pre>';
-
-		$('#integration-inline-response').empty();
-		$('#integration-inline-response').append(responseData);
-		$('#integration-inline-response').parent().parent().removeClass('d-none');
-		$('.iframe-container').addClass('d-none');
-		$('#integration-iframe-loader').attr('src', '');
-	}
-}, false);
+import BSN from 'bootstrap.native'
 
 function safeEncodeString(str) {
 	return window.btoa(unescape(encodeURIComponent(str)));
@@ -289,3 +209,135 @@ function loadIntegrationObject() {
 		$("#post-form-submit").click();
 	}
 }
+
+function getElementId(elem) {
+	if (null !== elem.attributes['id'] && undefined !== elem.attributes['id']) {
+		return elem.attributes['id'].value;
+	}
+
+	return false;
+}
+
+async function bootFromJson() {
+	try {
+		let [applications, parameters, transactions] = await Promise.all([
+			fetch('/resources/json/applications.json'),
+			fetch('/resources/json/parameters.json'),
+			fetch('/resources/json/transactions.json')
+		]);
+	  
+		integrator.applications = applications.json();
+		integrator.parameters = parameters.json();
+		integrator.transactions = transactions.json();
+
+		populateApplicationSelectBox();
+		populateParameterList();
+		retrieveParamsLocalStorage();
+	  }
+	  catch(err) {
+		console.log(err);
+	  };
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+	window.integrator = {};
+
+	bootFromJson();
+
+	document.addEventListener('click', (event) => {
+		let trigger = event.target;
+		let triggerId = getElementId(trigger);
+		let bubble = trigger.closest('button, a, .btn');
+
+		if (null !== bubble) {
+			trigger = bubble;
+			triggerId = getElementId(bubble);
+		}
+
+		if ('query-string-submit' === triggerId) {
+			let modal = new BSN.modal('#query-string-modal');
+
+			modal.hide();
+			getQueryStringParameters();
+		}
+
+		if ('clear-used-button' === triggerId) {
+			clearUsedParametersList();
+		}
+
+		if ('integration-loader-button' === triggerId) {
+			document.querySelector('#integration-inline-response').closest('.card').classList.add('d-none');
+			document.querySelector('.iframe-container').classList.remove('d-none');
+
+			loadIntegrationObject();
+		}
+	});
+
+	/* */
+	document.addEventListener('change', (event) => {
+		let trigger = event.target;
+		let triggerId = getElementId(trigger);
+
+		if ('application-select-input' === triggerId) {
+			populateEnvironmentSelectBox();
+			populateTransactionSelectBox();
+		}
+	});
+
+	window.addEventListener('message', function (event) {
+		// Proceed if the posted message is the CenPOSResponse message
+		if (event.data && event.data.type === 'CenPOSResponse') {
+			var responseData = `<strong>STRING</strong>
+			<hr class="hr-xs">
+			<pre>
+				<code>${JSON.stringify(event.data.data, undefined, 2)}</code>
+			</pre>`;
+
+			let response = document.querySelector('#integration-inline-response');
+			let iframe = document.querySelector('.iframe-container');
+			let iframeLoader = document.querySelector('#integration-iframe-loader');
+
+			response.innerHTML = responseData;
+			response.closest('.card').classList.remove('d-none');
+			iframe.classList.add('d-none');
+			iframeLoader.src = '';
+		}
+	}, false);
+
+	let queryString = document.querySelector('#query-string-input');
+	let filterParams = document.querySelector('#input-filter-params');
+
+	if (null !== queryString && undefined !== queryString) {
+		queryString.addEventListener('keydown', (event) => {
+			if (event.key === 13) {
+				event.preventDefault();
+				document.querySelector('#query-string-submit').click();
+			}
+		});
+	}
+
+	if (null !== filterParams && undefined !== filterParams) {
+		filterParams.addEventListener('keydown', (event) => {
+			let filter = filterParams.value;
+
+			document.querySelectorAll('#form-params-available .form-group-param').forEach((param) => {
+				param.classList.add('d-none');
+			});
+
+			document.querySelectorAll("#form-params-available .form-group-param label").forEach((label) => {
+				let labelText = label.textContent;
+
+				if (labelText.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+					label.parentElement.classList.remove('d-none');
+				}
+			});
+		});
+	}
+});
+
+/* $(".sortable").sortable({
+	axis: "y",
+	cursor: "move",
+	connectWith: '.sortable',
+	opacity: 0.5,
+}).disableSelection(); */
