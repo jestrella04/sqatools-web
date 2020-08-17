@@ -1,207 +1,205 @@
 {
-	"param": {
-		"abanumber": [
-			""
-		],
-		"accountnumber": [
-			""
-		],
-		"address": [
-			""
-		],
-		"amount": [
-			""
-		],
-		"authnumber": [
-			""
-		],
-		"authheader": [
-			""
-		],
-		"autorentaldata": [
-			""
-		],
-		"autoprint": [
-			"true",
-			"false",
-			""
-		],
-		"autosubmit": [
-			"true",
-			"false",
-			""
-		],
-		"cardnumber": [
-			""
-		],
-		"centralized": [
-			"true",
-			"false",
-			""
-		],
-		"checknumber": [
-			""
-		],
-		"checktype": [
-			"personal",
-			"corporate",
-			""
-		],
-		"currencycode": [
-			""
-		],
-		"customercode": [
-			""
-		],
-		"disabledalert": [
-			"true",
-			"false",
-			""
-		],
-		"drivelicense": [
-			""
-		],
-		"email": [
-			""
-		],
-		"invoice": [
-			""
-		],
-		"invoiceOption": [
-			"true",
-			"false",
-			""
-		],
-		"ip": [
-			""
-		],
-		"ipterminal": [
-			""
-		],
-		"lang": [
-			""
-		],
-		"lastfourdigits": [
-			""
-		],
-		"leveliiidata": [
-			""
-		],
-		"manualentry": [
-			"true",
-			"false",
-			""
-		],
-		"merchantid": [
-			""
-		],
-		"message": [
-			""
-		],
-		"modifyavs": [
-			"true",
-			"false",
-			""
-		],
-		"operation": [
-			"delete",
-			"modify",
-			""
-		],
-		"partialbalance": [
-			"true",
-			"false",
-			""
-		],
-		"password": [
-			""
-		],
-		"phone": [
-			""
-		],
-		"positivecard": [
-			"true",
-			"false",
-			""
-		],
-		"postresponse": [
-			"true",
-			"false",
-			""
-		],
-		"receipts": [
-			"true",
-			"false",
-			""
-		],
-		"redirecttype": [
-			"self",
-			"parent",
-			"top",
-			"blank",
-			""
-		],
-		"referencenumber": [
-			""
-		],
-		"responsetype": [
-			"message",
-			"restful",
-			"soap",
-			""
-		],
-		"scale": [
-			""
-		],
-		"sessionid": [
-			""
-		],
-		"splittender": [
-			"true",
-			"false",
-			""
-		],
-		"tablet": [
-			"true",
-			"false",
-			""
-		],
-		"taxamount": [
-			""
-		],
-		"taxexempt": [
-			"true",
-			"false",
-			""
-		],
-		"terminalport": [
-			""
-		],
-		"token": [
-			""
-		],
-		"urlcancel": [
-			""
-		],
-		"urlresponse": [
-			""
-		],
-		"urlresponsepost": [
-			""
-		],
-		"urlreturn": [
-			""
-		],
-		"userid": [
-			""
-		],
-		"validatecookies": [
-			"true",
-			"false",
-			""
-		],
-		"zip": [
-			""
-		]
-	}
+	"abanumber": [
+		""
+	],
+	"accountnumber": [
+		""
+	],
+	"address": [
+		""
+	],
+	"amount": [
+		""
+	],
+	"authnumber": [
+		""
+	],
+	"authheader": [
+		""
+	],
+	"autorentaldata": [
+		""
+	],
+	"autoprint": [
+		"true",
+		"false",
+		""
+	],
+	"autosubmit": [
+		"true",
+		"false",
+		""
+	],
+	"cardnumber": [
+		""
+	],
+	"centralized": [
+		"true",
+		"false",
+		""
+	],
+	"checknumber": [
+		""
+	],
+	"checktype": [
+		"personal",
+		"corporate",
+		""
+	],
+	"currencycode": [
+		""
+	],
+	"customercode": [
+		""
+	],
+	"disabledalert": [
+		"true",
+		"false",
+		""
+	],
+	"drivelicense": [
+		""
+	],
+	"email": [
+		""
+	],
+	"invoice": [
+		""
+	],
+	"invoiceOption": [
+		"true",
+		"false",
+		""
+	],
+	"ip": [
+		""
+	],
+	"ipterminal": [
+		""
+	],
+	"lang": [
+		""
+	],
+	"lastfourdigits": [
+		""
+	],
+	"leveliiidata": [
+		""
+	],
+	"manualentry": [
+		"true",
+		"false",
+		""
+	],
+	"merchantid": [
+		""
+	],
+	"message": [
+		""
+	],
+	"modifyavs": [
+		"true",
+		"false",
+		""
+	],
+	"operation": [
+		"delete",
+		"modify",
+		""
+	],
+	"partialbalance": [
+		"true",
+		"false",
+		""
+	],
+	"password": [
+		""
+	],
+	"phone": [
+		""
+	],
+	"positivecard": [
+		"true",
+		"false",
+		""
+	],
+	"postresponse": [
+		"true",
+		"false",
+		""
+	],
+	"receipts": [
+		"true",
+		"false",
+		""
+	],
+	"redirecttype": [
+		"self",
+		"parent",
+		"top",
+		"blank",
+		""
+	],
+	"referencenumber": [
+		""
+	],
+	"responsetype": [
+		"message",
+		"restful",
+		"soap",
+		""
+	],
+	"scale": [
+		""
+	],
+	"sessionid": [
+		""
+	],
+	"splittender": [
+		"true",
+		"false",
+		""
+	],
+	"tablet": [
+		"true",
+		"false",
+		""
+	],
+	"taxamount": [
+		""
+	],
+	"taxexempt": [
+		"true",
+		"false",
+		""
+	],
+	"terminalport": [
+		""
+	],
+	"token": [
+		""
+	],
+	"urlcancel": [
+		""
+	],
+	"urlresponse": [
+		""
+	],
+	"urlresponsepost": [
+		""
+	],
+	"urlreturn": [
+		""
+	],
+	"userid": [
+		""
+	],
+	"validatecookies": [
+		"true",
+		"false",
+		""
+	],
+	"zip": [
+		""
+	]
 }

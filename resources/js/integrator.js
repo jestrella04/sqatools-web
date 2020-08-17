@@ -1,4 +1,5 @@
 import BSN from 'bootstrap.native'
+import { param, support } from 'jquery';
 
 function safeEncodeString(str) {
 	return window.btoa(unescape(encodeURIComponent(str)));
@@ -26,94 +27,115 @@ function saveParamsLocalStorage(params) {
 }
 
 function retrieveParamsLocalStorage() {
-	var params = JSON.parse(localStorage.getItem('integrator-params-used'));
+	let params = JSON.parse(localStorage.getItem('integrator-params-used'));
 
-	$.each(params, function (name, value) {
-		var formParamsUsed = $('#form-params-used');
-		var formParamInput = $('#form-params-available').find('#param-' + name);
-		var formParamGroup = formParamInput.parent().parent().detach();
+	if (null === params || undefined === params) return;
 
-		formParamInput.val(value);
-		formParamGroup.appendTo(formParamsUsed);
-	});
+	for (let param of Object.keys(params)) {
+		let value = params[param];
+
+		if ('type' === param) continue;
+
+		let formParamsUsed = document.querySelector('#form-params-used');
+		let formParamInput = document.querySelector('#form-params-available')
+			.querySelector('#param-' + param);
+		let formParamGroup = formParamInput.closest('.form-group');
+		let detached = formParamGroup.parentElement.removeChild(formParamGroup);
+
+		formParamInput.value = value;
+		formParamsUsed.insertAdjacentElement('beforeend', detached);
+	}
 }
 
 function populateApplicationSelectBox() {
-	$('#application-select-input').empty();
+	let selectBox = document.querySelector('#application-select-input');
+	
+	selectBox.innerHTML = '';
+	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
-	$.each(integrator.applications, function (name, config) {
-		$('#application-select-input').append('<option value="' + name + '">' + name + '</option>');
-	});
-
-	$('#application-select-input').trigger('change');
+	for (let name of Object.keys(integrator.applications)) {
+		selectBox.insertAdjacentHTML('beforeend',`<option value="${name}">${name}</option>`);
+	}
 }
 
 function populateEnvironmentSelectBox() {
-	var selectedAppName = $('#application-select-input').val();
-
-	$('#environment-select-input').empty();
+	let selectedAppName = document.querySelector('#application-select-input').value;
+	let selectBox = document.querySelector('#environment-select-input');
+	
+	selectBox.innerHTML = '';
+	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
 	if (selectedAppName.length > 0) {
-		$.each(integrator.applications[selectedAppName]['url'], function (name, url) {
-			$('#environment-select-input').append('<option value="' + url + '">' + name + '</option>');
-		});
+		let address = integrator.applications[selectedAppName]['url'];
+
+		for (let name of Object.keys(address)) {
+			let url = address[name];
+
+			selectBox.insertAdjacentHTML('beforeend', `<option value="${url}">${name}</option>`);
+		}
 	}
 }
 
 function populateTransactionSelectBox() {
-	var selectedAppName = $('#application-select-input').val();
-	var selectedAppType = integrator.applications[selectedAppName]['type'];
-	var supportedTrxTypes = integrator.transactions[selectedAppType]['transaction'];
+	let selectedAppName = document.querySelector('#application-select-input').value;
+	let selectedAppType = integrator.applications[selectedAppName]['type'];
+	let supportedTrxTypes = integrator.transactions[selectedAppType]['transaction'];
+	let selectBox = document.querySelector('#transaction-select-input');
+	
+	selectBox.innerHTML = '';
+	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
-	$('#transaction-select-input').empty();
-
-	if (selectedAppName.length > 0) {
-		$.each(supportedTrxTypes, function (idx, name) {
-			$('#transaction-select-input').append('<option value="' + name + '">' + name + '</option>');
-		});
+	for (let name of Object.keys(supportedTrxTypes)) {
+		let value = supportedTrxTypes[name];
+		selectBox.insertAdjacentHTML('beforeend', `<option value="${value}">${value}</option>`);
 	}
 }
 
 function populateParameterList() {
-	var paramsList = '';
+	let html = '';
+	let paramsList = '';
+	let params = integrator.parameters;
 
-	$.each(integrator.parameters, function (name, values) {
-		paramsList += '<div class="form-group form-group-param row">';
-		paramsList += '	<label for="param-' + name + '" class="col-sm-4 col-form-label col-form-label-sm">' + name + ':</label>';
-		paramsList += '	<div class="col-sm-8">';
+	for (let name of Object.keys(params)) {
+		let values = params[name];
 
 		if (1 == values.length && 0 == values[0].length) {
-			paramsList += '		<input type="text" id="param-' + name + '" class="integrator-param form-control form-control-sm">';
+			paramsList = `<input type="text" id="param-${name}" class="integrator-param form-control form-control-sm">`;
 		} else {
-			paramsList += '		<select id="param-' + name + '" class="integrator-param form-control form-control-sm">';
+			paramsList = `<select id="param-${name}" class="integrator-param form-control form-control-sm">`;
 
-			$.each(values, function (idx, option) {
-				paramsList += '			<option value="' + option + '">' + option + '</option>';
-			});
+			for (let option of Object.keys(values)) {
+				let value = values[option];
+				paramsList += `<option value="${value}">${value}</option>`;
+			}
 
-			paramsList += '		</select>';
+			paramsList += '</select>';
 		}
 
-		paramsList += '	</div>';
-		paramsList += '</div>';
-	});
+		html += `<div class="form-group form-group-param row">
+			<label for="param-${name}" class="col-sm-4 col-form-label col-form-label-sm">${name}:</label>
+			<div class="col-sm-8">
+				${paramsList}
+			</div>
+		</div>`;
+	}
 
-	$('#form-params-available').append(paramsList);
+	document.querySelector('#form-params-available').innerHTML = html;
 }
 
 function clearUsedParametersList() {
-	var params = $('#form-params-used').find('.integrator-param');
+	let params = document.querySelector('#form-params-used').querySelectorAll('.integrator-param');
 
-	$.each(params, function () {
-		var formParamGroup = $(this).parent().parent().detach();
-
-		formParamGroup.appendTo($('#form-params-available'));
+	params.forEach((param) => {
+		let formParamGroup = param.closest('.form-group');
+		let detached = formParamGroup.parentElement.removeChild(formParamGroup);
+		document.querySelector('#form-params-available').insertAdjacentElement('beforeend', detached);
 	});
 }
 
 function getQueryStringParameters() {
-	var queryString = $('#query-string-input').val();
-	var params = {};
+	let queryString = document.querySelector('#query-string-input').value;
+	let params = {};
 
 	if (queryString.length > 0) {
 		queryString.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -134,79 +156,77 @@ function getQueryStringParameters() {
 		saveParamsLocalStorage(params);
 		retrieveParamsLocalStorage();
 
-		$('#query-string-input').val('');
+		document.querySelector('#query-string-input').value = '';
 	}
 }
 
 function loadIntegrationObject() {
-	var params = {};
-	var formParamsUsed = $('#form-params-used').find('.integrator-param');
-	var method = $('#method-select-input').val();
-	var baseUrl = $('#environment-select-input').val();
-	var basePath = baseUrl.substring(0, baseUrl.lastIndexOf('/')) + '/';
-	var getUrl = baseUrl + '?';
+	let params = {};
+	let formParamsUsed = document.querySelector('#form-params-used')
+		.querySelectorAll('.integrator-param');
+	let method = document.querySelector('#method-select-input').value;
+	let baseUrl = document.querySelector('#environment-select-input').value;
+	let basePath = baseUrl.substring(0, baseUrl.lastIndexOf('/')) + '/';
+	let getUrl = baseUrl + '?';
 
-	params['type'] = $('#transaction-select-input').val();
+	params['type'] = document.querySelector('#transaction-select-input').value;
 
-	$(formParamsUsed).each(function () {
-		var id = $(this).attr('id');
-		var name = id.substring(id.indexOf('-') + 1);
-		var value = $(this).val();
-
-		value = (name, value);
+	formParamsUsed.forEach((param) => {
+		let id = getElementId(param);
+		let name = id.substring(id.indexOf('-') + 1);
+		let value = param.value;
 
 		params[name] = value;
 	});
 
 	saveParamsLocalStorage(params);
 
-	if ("GET" == method) {
-		$.each(params, function (key, val) {
-			val = paramEncodeValue(key, val);
+	if ("GET" === method) {
+		let queryString = new URLSearchParams();
+
+		for (let key of Object.keys(params)) {
+			let val = paramEncodeValue(key, params[key]);
 
 			// Append each parameter to URL
-			if ("type" == key) {
-				getUrl = getUrl + key + "=" + val;
-			}
+			queryString.append(key, val);
+		}
 
-			else {
-				getUrl = getUrl + "&" + key + "=" + val;
-			}
-
-			// Display the generated URL
-			$("#integration-endpoint-input").val(getUrl);
-		});
-
-		// Load iframe
-		$('#integration-iframe-loader').attr('src', getUrl);
-	}
-
-	else if ("POST" == method) {
-		var formContent = "";
+		// Update getUrl
+		getUrl = getUrl + queryString.toString();
 
 		// Display the generated URL
-		$("#integration-endpoint-input").val(baseUrl);
+		document.querySelector('#integration-endpoint-input').value = getUrl;
+
+		// Load iframe
+		document.querySelector('#integration-iframe-loader').src = getUrl;
+	}
+
+	else if ("POST" === method) {
+		let formContent = '';
+		let formFields = '';
+
+		// Display the generated URL
+		document.querySelector("#integration-endpoint-input").value = baseUrl;
 
 		// Clean the post form
-		$("#post-form").empty();
+		document.querySelector("#post-form").innerHTML = '';
 
 		// Get new data
-		formContent += '<form action="' + baseUrl + '" method="POST" target="integration-iframe-loader">';
+		for (let key of Object.keys(params)) {
+			let val = paramEncodeValue(key, params[key]);
+			formFields += `<input type="hidden" name="${key}" value="${val}" />`;
+		}
 
-		$.each(params, function (key, val) {
-			val = paramEncodeValue(key, val);
-
-			formContent += '<input type="hidden" name="' + key + '" value="' + val + '" />';
-		});
-
-		formContent += '<input type="submit" id="post-form-submit" value="CLICK HERE TO SENT AS POST" />';
-		formContent += '</form>';
+		formContent += `<form action="${baseUrl}" method="POST" target="integration-iframe-loader">
+			${formFields}
+			<input type="submit" id="post-form-submit" value="CLICK HERE TO SENT AS POST" />
+		</form>`;
 
 		// Add the new data to DOM
-		$("#post-form").append(formContent);
+		document.querySelector("#post-form").innerHTML = formContent;
 
 		// submit form and load iframe
-		$("#post-form-submit").click();
+		document.querySelector("#post-form-submit").click();
 	}
 }
 
@@ -221,14 +241,14 @@ function getElementId(elem) {
 async function bootFromJson() {
 	try {
 		let [applications, parameters, transactions] = await Promise.all([
-			fetch('/resources/json/applications.json'),
-			fetch('/resources/json/parameters.json'),
-			fetch('/resources/json/transactions.json')
+			fetch('/resources/json/applications.json').then((response) => response.json()),
+			fetch('/resources/json/parameters.json').then((response) => response.json()),
+			fetch('/resources/json/transactions.json').then((response) => response.json())
 		]);
 	  
-		integrator.applications = applications.json();
-		integrator.parameters = parameters.json();
-		integrator.transactions = transactions.json();
+		integrator.applications = applications;
+		integrator.parameters = parameters;
+		integrator.transactions = transactions;
 
 		populateApplicationSelectBox();
 		populateParameterList();
@@ -255,7 +275,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 
 		if ('query-string-submit' === triggerId) {
-			let modal = new BSN.modal('#query-string-modal');
+			let modal = new BSN.Modal('#query-string-modal');
 
 			modal.hide();
 			getQueryStringParameters();
@@ -287,7 +307,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	window.addEventListener('message', function (event) {
 		// Proceed if the posted message is the CenPOSResponse message
 		if (event.data && event.data.type === 'CenPOSResponse') {
-			var responseData = `<strong>STRING</strong>
+			let responseData = `<strong>STRING</strong>
 			<hr class="hr-xs">
 			<pre>
 				<code>${JSON.stringify(event.data.data, undefined, 2)}</code>

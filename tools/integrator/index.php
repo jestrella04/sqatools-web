@@ -28,7 +28,9 @@
 						<label for="application-select-input" class="col-sm-4 col-form-label col-form-label-sm">Application:</label>
 
 						<div class="col-sm-8">
-							<select id="application-select-input" class="form-control form-control-sm"></select>
+							<select id="application-select-input" class="form-control form-control-sm">
+								<option value="" selected disabled>--</option>
+							</select>
 						</div>
 					</div>
 
@@ -36,7 +38,9 @@
 						<label for="environment-select-input" class="col-sm-4 col-form-label col-form-label-sm">Environment:</label>
 
 						<div class="col-sm-8">
-							<select id="environment-select-input" class="form-control form-control-sm"></select>
+							<select id="environment-select-input" class="form-control form-control-sm">
+								<option value="" selected disabled>--</option>
+							</select>
 						</div>
 					</div>
 
@@ -45,6 +49,7 @@
 
 						<div class="col-sm-8">
 							<select id="method-select-input" class="form-control form-control-sm">
+								<option value="" selected disabled>--</option>
 								<option value="POST">POST</option>
 								<option value="GET">GET</option>
 							</select>
@@ -55,7 +60,9 @@
 						<label for="transaction-select-input" class="col-sm-4 col-form-label col-form-label-sm">Transaction:</label>
 
 						<div class="col-sm-8">
-							<select id="transaction-select-input" class="form-control form-control-sm"></select>
+							<select id="transaction-select-input" class="form-control form-control-sm">
+								<option value="" selected disabled>--</option>
+							</select>
 						</div>
 					</div>
 				</form>
