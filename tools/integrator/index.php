@@ -75,7 +75,7 @@
 
 						<div class="col-sm-2">
 							<div id="clear-used-button" class="param-button">
-								<i class="fas fa-minus-circle" title="Clear all currently used parameters."></i>
+								<i class="fas fa-minus-circle" data-content="Clear all currently used parameters." data-toggle="popover"></i>
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 
 						<div class="col-sm-2">
 							<div id="help-available-button" class="param-button">
-								<i class="fas fa-question-circle" title="Drag the parameters you want to use to the green column above."></i>
+								<i class="fas fa-question-circle" data-content="Drag the parameters you want to use to the green column above." data-toggle="popover"></i>
 							</div>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 
 					<div class="input-group-append">
 						<button class="btn btn-dark" id="query-string-button" type="button" data-toggle="modal" data-target="#query-string-modal">
-							<i class="fas fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Enter a query string to get parameters and values from it"></i>
+							<i class="fas fa-edit" aria-hidden="true" data-toggle="popover" data-content="Enter a query string to get parameters and values from it"></i>
 						</button>
 					</div>
 				</div>

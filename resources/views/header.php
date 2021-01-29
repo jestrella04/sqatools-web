@@ -4,6 +4,7 @@
     <meta name="description" content="<?php echo isset($app['description']) ? $app['description'] . ' - ' : '' ?>">
     <meta name="author" content="Jonathan Estrella">
     <meta name="expires" content="wed, 01 Jan 2030">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title><?php echo isset($app['name']) ? $app['name'] . ' - ' : '' ?>SQA Web Tools</title>
 

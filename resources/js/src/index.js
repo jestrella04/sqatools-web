@@ -4,4 +4,4 @@ require('./swp');
 require('./webpay');
 require('./integrator');
 
-import '../sass/index.scss';
+import '../../sass/index.scss';

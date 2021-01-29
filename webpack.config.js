@@ -3,11 +3,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
     return {
+        devtool: 'none',
         mode: process.env.NODE_ENV,
 
         entry: {
-            main: './resources/js/index.js',
-            jquery: './resources/js/jquery.js',
+            main: './resources/js/src/index.js',
+            jquery: './resources/js/src/jquery.js',
         },
 
         output: {
@@ -37,6 +38,14 @@ module.exports = (env, argv) => {
                             outputPath: '../fonts'
                         }
                     },
+                } ,
+
+                {
+                    test: /\.m?js$/, 
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader'
+                    }
                 }
             ],
         },

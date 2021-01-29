@@ -4,3 +4,5 @@ resources/fonts/*
 resources/css/bundle.css
 resources/js/main.bundle.js
 resources/js/jquery.bundle.js
+resources/js/chance.bundle.js
+resources/js/x2js.bundle.js

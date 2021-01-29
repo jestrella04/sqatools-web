@@ -1,5 +1,5 @@
 import BSN from 'bootstrap.native'
-import { param, support } from 'jquery';
+import { Sortable, Plugins } from '@shopify/draggable';
 
 function safeEncodeString(str) {
 	return window.btoa(unescape(encodeURIComponent(str)));
@@ -50,6 +50,7 @@ function retrieveParamsLocalStorage() {
 function populateApplicationSelectBox() {
 	let selectBox = document.querySelector('#application-select-input');
 	
+	selectBox.disabled = false;
 	selectBox.innerHTML = '';
 	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
@@ -262,6 +263,12 @@ async function bootFromJson() {
 document.addEventListener('DOMContentLoaded', (event) => {
 	window.integrator = {};
 
+	let mainForm = document.querySelector('.main-form');
+
+	mainForm.querySelectorAll('select').forEach((selectBox) => {
+		selectBox.disabled = true;
+	});
+
 	bootFromJson();
 
 	document.addEventListener('click', (event) => {
@@ -293,7 +300,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	});
 
-	/* */
 	document.addEventListener('change', (event) => {
 		let trigger = event.target;
 		let triggerId = getElementId(trigger);
@@ -301,6 +307,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		if ('application-select-input' === triggerId) {
 			populateEnvironmentSelectBox();
 			populateTransactionSelectBox();
+
+			mainForm.querySelectorAll('select').forEach((selectBox) => {
+				selectBox.disabled = false;
+			});
 		}
 	});
 
@@ -353,11 +363,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			});
 		});
 	}
-});
 
-/* $(".sortable").sortable({
-	axis: "y",
-	cursor: "move",
-	connectWith: '.sortable',
-	opacity: 0.5,
-}).disableSelection(); */
+	const sortable = new Sortable(document.querySelectorAll('.sortable'), {
+		draggable: '.form-group-param',
+		handle: 'label',
+		classes: {
+			'source:dragging': 'translucent'
+		}
+	});
+});
