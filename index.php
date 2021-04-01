@@ -68,14 +68,16 @@
 								<i class="fas fa-couch"></i>
 							</div>
 
-							Backoffice
+							Backoffice &amp; Dashboard
 						</div>
 					</div>
 
 					<div class="list-group list-group-flush qa-item-group">
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/BackOffice/">Backoffice (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/BackOffice/">Backoffice (Elavon Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/BackOffice/">Backoffice (Mia2)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/BackOffice/">Backoffice (Mia3)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/dashboard/">Dashboard (Elavon Dev)</a>
 					</div>
 				</div>
 
@@ -120,23 +122,31 @@
 						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/spa/app/vt">VT (Elavon Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/spa-test/app/vt">VT (Staging)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/spa/app/vt">VT (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/ebppHTML5/">EBPP (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/ebppHTML5QA/">EBPP (Staging)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/EbppHtmlRoles/">EBPP (Legacy Dev)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/EbppHtmlPortalInt/PaymentPortal/">EBPP Customer Portal (Legacy Dev)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/EbppPaymentPortalQA/PaymentPortal/">EBPP Customer Portal (Staging)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/EbppPaymentPortalHtml5/PaymentPortal/">EBPP Customer Portal (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://remote.cenpos.net/RecurringPaymentsHTML5/">Recurring Payments HTML5 (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://va2.cenpos.net/recurringpaymentshtmlqa/">Recurring Payments HTML5 (VA)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/webpay/v7/html5/administration/">Webpay Admin Panel (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/webpaytest/v7/html5/administration/">Webpay Admin Panel (Staging)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/webpay/v7/html5/administration/">Webpay Admin Panel (Legacy Dev)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/simplewebpay/cards/administration/">SimpleWebpay Admin Panel (Prod)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/simplewebpay-test/cards/administration/">SimpleWebpay Admin Panel (Staging)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/simplewebpay/cards/administration/">SimpleWebpay Admin Panel (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/ebppHTML5/">EBPP AP (Prod)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/ebppHTML5QA/">EBPP AP (Staging)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/EbppHtmlRoles/">EBPP AP (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/ebppadmin/">EBPP AP (Elavon Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/EbppHtmlPortalInt/PaymentPortal/">EBPP CP (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/EbppPaymentPortalQA/PaymentPortal/">EBPP CP (Staging)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/EbppPaymentPortalHtml5/PaymentPortal/">EBPP CP (Prod)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://remote.cenpos.net/RecurringPaymentsHTML5/">Recurring Payments AP (Prod)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://va2.cenpos.net/recurringpaymentshtmlqa/">Recurring Payments AP (VA)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/RecurringPaymentsHtml/">Recurring Payments AP (Elavon Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/webpay/v7/html5/administration/">Webpay AP (Prod)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/webpaytest/v7/html5/administration/">Webpay AP (Staging)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/webpay/v7/html5/administration/">Webpay AP (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/webpay/v7/html5/administration/">Webpay AP (Elavon Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/simplewebpay/cards/administration/">SWP Cards AP (Prod)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/simplewebpay-test/cards/administration/">SWP Cards AP (Staging)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/simplewebpay/cards/administration/">SWP Cards AP (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/simplewebpay/cards/administration/">SWP Cards AP (Elavon Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://www3.cenpos.net/simplewebpay-test/checks/administration/">SWP Checks AP (Staging)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/simplewebpay/checks/administration/">SWP Checks AP (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/simplewebpay/checks/administration/">SWP Checks AP (Elavon Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/SimpleCashiering/">Simple Cashiering (Prod)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/SimpleCashiering-test/">Simple Cashiering (Staging)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/simple-cashiering-new/">Simple Cashiering (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://webtest.cenpos.net/simplecashieringv3/">Simple Cashiering (Elavon Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/AccountsPayable/">Accounts Payable (Prod)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://www4.cenpos.net/AccountsPayableQA/">Accounts Payable (Staging)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/AccountsPayable/">Accounts Payable (Legacy Dev)</a>
@@ -148,7 +158,7 @@
 						<a class="list-group-item qa-item" target="_blank" href="https://www.cenpos.biz/tpa/administration.php">TPA Administration (Prod)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://development.cenpos.com/hotelAuthForm/administration.php">TPA Administration (Staging)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/TPA/administration.php">TPA Administration (Legacy Dev)</a>
-						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/tokenization/">Tokenization Admin Panel (Legacy Dev)</a>
+						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/tokenization/">Tokenization AP (Legacy Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/reservation/?merchantid=">Synexis (Legacy Dev)</a>
 						<a class="list-group-item qa-item" target="_blank" href="https://test.cenpos.net:7443/reservation/administration/">Synexis Administration (Legacy Dev)</a>
 					</div>
