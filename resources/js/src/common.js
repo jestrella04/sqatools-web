@@ -14,7 +14,12 @@ document.addEventListener('click', (event) => {
     if (trigger.classList.contains('close')) {
         event.preventDefault();
 
-        document.querySelector('#alert').classList.add('d-none');
+        let alert = document.querySelector('#alert');
+
+        if (null !== alert && undefined !== alert) {
+            alert.classList.add('d-none');
+        }
+        
     }
 
     if ('global-filter-clear' === triggerId) {
