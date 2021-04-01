@@ -93,7 +93,7 @@
 
 						<div class="col-sm-2">
 							<div id="help-available-button" class="param-button">
-								<i class="fas fa-question-circle" data-content="Drag the parameters you want to use to the green column above." data-toggle="popover"></i>
+								<i class="fas fa-question-circle" data-content="Drag the parameters you want to use to the green column above. You can also double-click on the desired param name to quickly swap between columns." data-toggle="popover"></i>
 							</div>
 						</div>
 					</div>
