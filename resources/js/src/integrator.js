@@ -303,15 +303,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	document.addEventListener('dblclick', (event) => {
 		let trigger = event.target;
 		let triggerId = getElementId(trigger);
-		let bubble = trigger.closest('button, a, .btn, .form-group-param');
+		let bubble = trigger.closest('label');
 
 		if (null !== bubble) {
 			trigger = bubble;
 			triggerId = getElementId(bubble);
 		}
 
-		if (trigger.classList.contains('form-group-param')) {
-			// Here I want to programmatically swap the selected param
+		if (trigger.parentElement.classList.contains('form-group-param')) {
+			let currentForm = trigger.closest('form');
+			let currentParam = trigger.parentElement;
+			let detachedParam = currentForm.removeChild(currentParam);
+			let targetForm = ('form-params-available' === getElementId(currentForm)) ? '#form-params-used' : '#form-params-available';
+
+			document.querySelector(targetForm).appendChild(detachedParam);
 		}
 	});
 
