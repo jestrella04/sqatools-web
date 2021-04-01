@@ -300,6 +300,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	});
 
+	document.addEventListener('dblclick', (event) => {
+		let trigger = event.target;
+		let triggerId = getElementId(trigger);
+		let bubble = trigger.closest('button, a, .btn, .form-group-param');
+
+		if (null !== bubble) {
+			trigger = bubble;
+			triggerId = getElementId(bubble);
+		}
+
+		if (trigger.classList.contains('form-group-param')) {
+			// Here I want to programmatically swap the selected param
+		}
+	});
+
 	document.addEventListener('change', (event) => {
 		let trigger = event.target;
 		let triggerId = getElementId(trigger);
