@@ -124,13 +124,21 @@ function populateParameterList() {
 	document.querySelector('#form-params-available').innerHTML = html;
 }
 
-function clearUsedParametersList() {
-	let params = document.querySelector('#form-params-used').querySelectorAll('.integrator-param');
+function swapSingleParam(label) {
+	let currentForm = label.closest('form');
+	let currentParam = label.parentElement;
+	let detachedParam = currentForm.removeChild(currentParam);
+	let targetForm = ('form-params-available' === getElementId(currentForm)) ? '#form-params-used' : '#form-params-available';
 
-	params.forEach((param) => {
-		let formParamGroup = param.closest('.form-group');
-		let detached = formParamGroup.parentElement.removeChild(formParamGroup);
-		document.querySelector('#form-params-available').insertAdjacentElement('beforeend', detached);
+	document.querySelector(targetForm).appendChild(detachedParam);
+}
+
+function clearUsedParametersList() {
+	let formParams = document.querySelectorAll('#form-params-used .form-group-param');
+	console.log(formParams);
+
+	formParams.forEach((formParamGroup) => {
+		swapSingleParam(formParamGroup.querySelector('label'));
 	});
 }
 
@@ -274,7 +282,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	document.addEventListener('click', (event) => {
 		let trigger = event.target;
 		let triggerId = getElementId(trigger);
-		let bubble = trigger.closest('button, a, .btn');
+		let bubble = trigger.closest('button, a, .btn, .param-button');
 
 		if (null !== bubble) {
 			trigger = bubble;
@@ -311,12 +319,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 
 		if (trigger.parentElement.classList.contains('form-group-param')) {
-			let currentForm = trigger.closest('form');
-			let currentParam = trigger.parentElement;
-			let detachedParam = currentForm.removeChild(currentParam);
-			let targetForm = ('form-params-available' === getElementId(currentForm)) ? '#form-params-used' : '#form-params-available';
-
-			document.querySelector(targetForm).appendChild(detachedParam);
+			swapSingleParam(trigger);
 		}
 	});
 
