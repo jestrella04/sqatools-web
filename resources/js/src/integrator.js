@@ -242,9 +242,9 @@ function getElementId(elem) {
 async function bootFromJson() {
 	try {
 		let [applications, parameters, transactions] = await Promise.all([
-			fetch('/resources/json/applications.json').then((response) => response.json()),
-			fetch('/resources/json/parameters.json').then((response) => response.json()),
-			fetch('/resources/json/transactions.json').then((response) => response.json())
+			fetch('resources/json/applications.json').then((response) => response.json()),
+			fetch('resources/json/parameters.json').then((response) => response.json()),
+			fetch('resources/json/transactions.json').then((response) => response.json())
 		]);
 	  
 		integrator.applications = applications;
