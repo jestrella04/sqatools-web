@@ -271,13 +271,15 @@ async function bootFromJson() {
 document.addEventListener('DOMContentLoaded', (event) => {
 	window.integrator = {};
 
-	let mainForm = document.querySelector('.main-form');
+	let mainForm = document.querySelector('#app-integrator .main-form');
 
-	mainForm.querySelectorAll('select').forEach((selectBox) => {
-		selectBox.disabled = true;
-	});
+	if (null !== mainForm && undefined !== mainForm) {
+		mainForm.querySelectorAll('select').forEach((selectBox) => {
+			selectBox.disabled = true;
+		});
 
-	bootFromJson();
+		bootFromJson();
+	}
 
 	document.addEventListener('click', (event) => {
 		let trigger = event.target;
