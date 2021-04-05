@@ -17,7 +17,7 @@ document.addEventListener('click', (event)=> {
         let options = trigger.attributes['data-targeturl'].value;
 
         if ('object' == plugin) {
-            options = options + '+object';
+            options = options + '-object';
         }
 
         document.querySelector('#alert').classList.remove('d-none');
@@ -36,7 +36,7 @@ document.addEventListener('click', (event)=> {
         } else {
             let paramsUrl = ['html/', file, '.php'].join('');
             let urlBase = document.URL.substr(0, document.URL.lastIndexOf('/'));
-            let urlTail = ['swp.php/', server, '/', options, '+recaptcha' + recaptcha, '/', file, '.php'].join('');
+            let urlTail = ['swp.php/', server, '/', options, '-recaptcha' + recaptcha, '/', file, '.php'].join('');
             let url = [urlBase, urlTail].join('/');
 
             alert.classList.add('d-none');
@@ -46,8 +46,8 @@ document.addEventListener('click', (event)=> {
             }); */
 
             document.querySelector('#script').disabled = false;
-            document.querySelector('#webpay').src = urlTail;
-            document.querySelector('#webpay-url').value = url;
+            document.querySelector('#webpay').src = encodeURI(urlTail);
+            document.querySelector('#webpay-url').value = encodeURI(url);
         }
     }
 });

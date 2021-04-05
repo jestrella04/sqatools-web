@@ -1,16 +1,4 @@
 <?php
-// Force HTTPS for security
-if ($_SERVER["HTTPS"] != "on") {
-	$pageURL = "Location: https://";
-
-	if ($_SERVER["SERVER_PORT"] != "80") {
-		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-	} else {
-		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-	}
-
-	header($pageURL);
-}
 
 // Default settings
 $verify = false;
@@ -35,7 +23,7 @@ $extraOptions = $path_parts[1];
 $testcase = $path_parts[2];
 
 // Get additional options
-$extraOptions = explode('+', $extraOptions);
+$extraOptions = explode('-', $extraOptions);
 
 // Enable the checks flag
 if (in_array('ach', $extraOptions)) {

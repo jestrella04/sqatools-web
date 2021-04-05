@@ -52,11 +52,11 @@
 					<a href="#" class="list-group-item swp-testcase" id="swp-006" data-targeturl="verify">swp-006 <small class="text-muted">(Email + CVV + Verify)</small></a>
 					<a href="#" class="list-group-item swp-testcase" id="swp-007" data-targeturl="verify">swp-007 <small class="text-muted">(CVV + Verify)</small></a>
 					<a href="#" class="list-group-item swp-testcase" id="swp-008" data-targeturl="verify">swp-008 <small class="text-muted">(Email + Verify)</small></a>
-					<a href="#" class="list-group-item swp-testcase" id="swp-009" data-targeturl="ach+verify">swp-009 <small class="text-muted">(Checks + Verify)</small></a>
-					<a href="#" class="list-group-item swp-testcase" id="swp-010" data-targeturl="verify+token19">swp-010 <small class="text-muted">(Token19 + Verify)</small></a>
-					<a href="#" class="list-group-item swp-testcase" id="swp-011" data-targeturl="verify+token19">swp-011 <small class="text-muted">(Token19 + Email + CVV + Verify)</small></a>
-					<a href="#" class="list-group-item swp-testcase" id="swp-012" data-targeturl="verify+token19">swp-012 <small class="text-muted">(Token19 + CVV + Verify)</small></a>
-					<a href="#" class="list-group-item swp-testcase" id="swp-013" data-targeturl="verify+token19">swp-013 <small class="text-muted">(Token19 + Email + Verify)</small></a>
+					<a href="#" class="list-group-item swp-testcase" id="swp-009" data-targeturl="ach-verify">swp-009 <small class="text-muted">(Checks + Verify)</small></a>
+					<a href="#" class="list-group-item swp-testcase" id="swp-010" data-targeturl="verify-token19">swp-010 <small class="text-muted">(Token19 + Verify)</small></a>
+					<a href="#" class="list-group-item swp-testcase" id="swp-011" data-targeturl="verify-token19">swp-011 <small class="text-muted">(Token19 + Email + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item swp-testcase" id="swp-012" data-targeturl="verify-token19">swp-012 <small class="text-muted">(Token19 + CVV + Verify)</small></a>
+					<a href="#" class="list-group-item swp-testcase" id="swp-013" data-targeturl="verify-token19">swp-013 <small class="text-muted">(Token19 + Email + Verify)</small></a>
 				</div>
 			</div>
 

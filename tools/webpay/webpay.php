@@ -1,16 +1,4 @@
 <?php
-// Force HTTPS for security
-if ($_SERVER["HTTPS"] != "on") {
-	$pageURL = "Location: https://";
-
-	if ($_SERVER["SERVER_PORT"] != "80") {
-		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-	} else {
-		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-	}
-
-	header($pageURL);
-}
 
 // Enable debugging
 /* ini_set('display_errors', 1);
