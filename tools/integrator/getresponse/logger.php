@@ -1,23 +1,27 @@
 <?php
 
+$sqlite = 'log.sqlite';
+
 function truncateLog() {
-    $db = new SQLite3('log.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+    $db = new SQLite3($sqlite, SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
     $db->exec('DELETE FROM "log"');
 }
 
 function logResponse($type, $body) {
-    $db = new SQLite3('log.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-    $log = $db->prepare('INSERT INTO "log" ("date", "type", "response") VALUES(?, ?, ?)');
-    $log->bindValue(1, date('Y-m-d H:i:s'), SQLITE3_TEXT);
-    $log->bindValue(2, $type, SQLITE3_TEXT);
-    $log->bindValue(3, $body, SQLITE3_TEXT);
-    $log->execute()->finalize();
+    if (file_exists($sqlite)) {
+        $db = new SQLite3($sqlite, SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+        $log = $db->prepare('INSERT INTO "log" ("date", "type", "response") VALUES(?, ?, ?)');
+        $log->bindValue(1, date('Y-m-d H:i:s'), SQLITE3_TEXT);
+        $log->bindValue(2, $type, SQLITE3_TEXT);
+        $log->bindValue(3, $body, SQLITE3_TEXT);
+        $log->execute()->finalize();
+    }
 }
 
 function getResponseReport($p = 1, $limit = 50) {
-    $db = new SQLite3('log.sqlite');
+    $db = new SQLite3($sqlite);
     
-    // Calculate SQL offset pased on current page
+    // Calculate SQL offset based on current page
     if (1 == $p) {
         $offset = 0;
     } else {
@@ -38,7 +42,7 @@ function getResponseReport($p = 1, $limit = 50) {
 }
 
 function getResponseLogCount() {
-    $db = new SQLite3('log.sqlite');
+    $db = new SQLite3($sqlite);
     
     return $db->querySingle('SELECT count("id") AS "counter" FROM log');
 }
