@@ -5,8 +5,8 @@
 	params += "&customercode=swp001";
 	params += "&address=1307 Broad Hollow Road";
 	params += "&zipcode=761115307";
-	params += "&isemail=true";
-	params += "&iscvv=true";
+	params += "&isemail=false";
+	params += "&iscvv=false";
 
 	$(document).ready(function()
 	{
@@ -33,7 +33,7 @@
 	{
 		var str = '<pre><code>' + JSON.stringify(data, undefined, 2) + '</code></pre>';
 
-		if (data !== 'Error in Form') top.$('#webpay').attr('src', '');
+        //if (data !== 'Error in Form') top.$('#webpay').attr('src', '');
 		top.$('#webpay-response').empty();
 		top.$('#webpay-response').append(str);
 	}

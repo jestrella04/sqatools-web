@@ -3,8 +3,8 @@
 
 	params += "verifyingpost=<?php echo urlencode($response->Data)?>";
 	params += "&customercode=swp001";
-	params += "&address=9048";
-	params += "&zipcode=33189";
+	params += "&address=1307 Broad Hollow Road";
+	params += "&zipcode=761115307";
 	params += "&isemail=false";
 	params += "&iscvv=false";
 
@@ -21,9 +21,11 @@
 			cancel: formatResponse
 		});
 
-		$("#submit").on('click', function()
+		$(".swp-btn").on('click', function(e) 
 		{
-			$("#NewCenposPlugin").submitAction();
+			if (e.target.id == 'submit') {
+				$("#NewCenposPlugin").submitAction();
+			}
 		});
 	});
 	
@@ -31,6 +33,7 @@
 	{
 		var str = '<pre><code>' + JSON.stringify(data, undefined, 2) + '</code></pre>';
 
+		if (data !== 'Error in Form') top.$('#webpay').attr('src', '');
 		top.$('#webpay-response').empty();
 		top.$('#webpay-response').append(str);
 	}

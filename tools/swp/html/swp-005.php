@@ -18,9 +18,11 @@
 			cancel: formatResponse
 		});
 
-		$("#submit").on('click', function()
+		$(".swp-btn").on('click', function(e) 
 		{
-			$("#NewCenposPlugin").submitAction();
+			if (e.target.id == 'submit') {
+				$("#NewCenposPlugin").submitAction();
+			}
 		});
 	});
 	
@@ -28,6 +30,7 @@
 	{
 		var str = '<pre><code>' + JSON.stringify(data, undefined, 2) + '</code></pre>';
 
+		if (data !== 'Error in Form') top.$('#webpay').attr('src', '');
 		top.$('#webpay-response').empty();
 		top.$('#webpay-response').append(str);
 	}

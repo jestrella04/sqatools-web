@@ -133,7 +133,7 @@ if (!is_null($webpay_path) && !is_null($testcase)) {
 	<head>
 		<meta charset="UTF-8">
 		<title>Simple Webpay Test</title>
-		<link rel="stylesheet" href="../../../../resources/css/swp.css">
+		<link rel="stylesheet" href="../../../../../resources/css/bundle.css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="https://www.cenpos.com/Plugins/porthole.min.js"></script>
 		<script type="text/javascript" src="<?= $plugin ?>"></script>
@@ -142,8 +142,8 @@ if (!is_null($webpay_path) && !is_null($testcase)) {
 
 	<body>
 		<div id="NewCenposPlugin"></div>
-		<button id="submit" class="swp-btn" type="button">SUBMIT</button>
-		<button id="cancel" class="swp-btn" type="button" title="Not implemented">CANCEL</button>
+		<button id="submit" class="btn btn-success swp-btn" type="button">SUBMIT</button>
+		<button id="cancel" class="btn btn-danger swp-btn" type="button" disabled>CANCEL</button>
 	</body>
 </html>
 <?php

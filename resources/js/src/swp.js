@@ -46,7 +46,7 @@ document.addEventListener('click', (event)=> {
             }); */
 
             document.querySelector('#script').disabled = false;
-            document.querySelector('#webpay').src = encodeURI(urlTail);
+            document.querySelector('#webpay').src = encodeURI(url);
             document.querySelector('#webpay-url').value = encodeURI(url);
         }
     }

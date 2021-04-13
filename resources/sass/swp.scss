@@ -1,29 +1,4 @@
 #app-swp {
-	.swp-btn {
-		padding: 1em;
-		font-weight: 700;
-		color: white;
-		border: 1px solid whiteSmoke;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-	
-	#submit {
-		background: $primary;
-	}
-	
-	#submit:hover {
-		background: lighten($primary, 15%);
-	}
-	
-	#cancel {
-		background: $danger;
-	}
-	
-	#cancel:hover {
-		background: lighten($danger, 15%);
-	}
-
 	#swp-list-group {
 		.list-group-item {
 			padding: 0.3rem 0.7rem;
