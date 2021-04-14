@@ -99,6 +99,8 @@ There are several ways that you can serve the project so that you can access it 
 npm run serve
 ```
 
+If you intend to use the Response Logger tool, please make sure that `tools/integrator/getresponse/log/` folder exists and is writable by PHP.
+
 <!-- ROADMAP -->
 ## Roadmap
 
