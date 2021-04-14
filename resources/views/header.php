@@ -1,5 +1,10 @@
+<?php
+if ($app['id'] === 'index') $basePath = '.';
+elseif ($app['id'] === 'response-analizer') $basePath = '../../../../';
+else $basePath = '../../';
+?>
 <head>
-    <base href="<?= ($app['id'] === 'index') ? '.' : '../../' ?>">
+    <base href="<?= $basePath ?>">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?php echo isset($app['description']) ? $app['description'] . ' - ' : '' ?>">

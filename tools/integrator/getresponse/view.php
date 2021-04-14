@@ -23,7 +23,6 @@ $high = $p * $limit;
     <table class="table table-sm table-bordered">
         <thead>
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Date</th>
                 <th scope="col">Type</th>
                 <th scope="col">Parsed Response</th>
@@ -33,7 +32,6 @@ $high = $p * $limit;
         <tbody>
             <?php foreach($log as $row): ?>
             <tr>
-                <td><?= $row['id'] ?></td>
                 <td><?= $row['date'] ?></td>
                 <td><?= $row['type'] ?></td>
                 <td class="text-break"><?= $row['response'] ?></td>
