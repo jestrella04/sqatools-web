@@ -51,11 +51,10 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
+  * [Serve the project](#serve-the-project)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
-* [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -68,11 +67,11 @@ Web tools to assist CenPOS SQA duties.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get a local environment up and running follow the below simple steps.
 
 ### Prerequisites
 
-To keep things clear and straight to the point, this instructions assumes you are familiar with PHP, Git and NPM. And, of course, that you have already installed them on your machine.
+To keep things clear and straight to the point, these instructions assumes you are familiar with PHP, Git and NPM. And, of course, that you have already installed them on your computer.
 
 ### Installation
  
@@ -91,15 +90,16 @@ npm install
 ```sh
 npm run prod
 ```
+
 ### Serve the project
 
-There are several ways that you can serve the project so that you can access it via your favorite web browser. To keep things simple, we've crafted a custom NPM command to get you started fast:
+To keep things simple and to get you started fast, you can use the following command (an alias to PHP's built-in server) to run a basic web host serving the project:
 
 ```sh
 npm run serve
 ```
 
-If you intend to use the Response Logger tool, please make sure that `tools/integrator/getresponse/log/` folder exists and is writable by PHP.
+Then just point your favorite browser to `http://localhost:8001`. If you intend to use the Response Logger tool, please make sure that `tools/integrator/getresponse/log/` folder exists and is writable by PHP.
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -123,14 +123,6 @@ Contributions are what make the open source community such an amazing place to b
 ## License
 
 Distributed under the LGPLv3 License. See `LICENSE` for more information.
-
-
-<!-- CONTACT -->
-## Contact
-
-Jonathan Estrella - [@jestrella04](https://twitter.com/jestrella04)
-
-Project Link: [https://github.com/jestrella04/sqatools-web](https://github.com/jestrella04/sqatools-web)
 
 
 <!-- ACKNOWLEDGEMENTS -->
