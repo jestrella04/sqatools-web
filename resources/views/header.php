@@ -25,5 +25,7 @@ else $basePath = '../../';
     <script type="text/javascript" src="resources/js/main.bundle.js"></script>
     <?php if ($app['jquery'] ?? false): ?>
     <script type="text/javascript" src="resources/js/jquery.bundle.js"></script>
+    <script type="text/javascript" src="https://www.cenpos.com/Plugins/porthole.min.js"></script>
+	<script type="text/javascript" src="https://www.cenpos.com/Plugins/jquery.cenpos.2.3.js"></script>
     <?php endif ?>
 </head>

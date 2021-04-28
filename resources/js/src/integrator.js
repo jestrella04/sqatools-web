@@ -49,20 +49,20 @@ function retrieveParamsLocalStorage() {
 
 function populateApplicationSelectBox() {
 	let selectBox = document.querySelector('#application-select-input');
-	
+
 	selectBox.disabled = false;
 	selectBox.innerHTML = '';
 	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
 	for (let name of Object.keys(integrator.applications)) {
-		selectBox.insertAdjacentHTML('beforeend',`<option value="${name}">${name}</option>`);
+		selectBox.insertAdjacentHTML('beforeend', `<option value="${name}">${name}</option>`);
 	}
 }
 
 function populateEnvironmentSelectBox() {
 	let selectedAppName = document.querySelector('#application-select-input').value;
 	let selectBox = document.querySelector('#environment-select-input');
-	
+
 	selectBox.innerHTML = '';
 	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
@@ -82,7 +82,7 @@ function populateTransactionSelectBox() {
 	let selectedAppType = integrator.applications[selectedAppName]['type'];
 	let supportedTrxTypes = integrator.transactions[selectedAppType]['transaction'];
 	let selectBox = document.querySelector('#transaction-select-input');
-	
+
 	selectBox.innerHTML = '';
 	selectBox.insertAdjacentHTML('beforeend', '<option value="" selected disabled>--</option>');
 
@@ -124,6 +124,24 @@ function populateParameterList() {
 	document.querySelector('#form-params-available').innerHTML = html;
 }
 
+function populateRequiredParams() {
+	let selectedAppName = document.querySelector('#application-select-input').value;
+	let requiredParams = integrator.applications[selectedAppName]['require'];
+	let paramsUsedForm = document.querySelector('#form-params-used');
+
+	for (let name of requiredParams) {
+		let selector = '#param-' + name;
+
+		if (!paramsUsedForm.querySelector(selector)) {
+			let label = document.querySelector(selector)
+				.closest('.form-group')
+				.querySelector('label');
+
+			swapSingleParam(label);
+		}
+	}
+}
+
 function swapSingleParam(label) {
 	let currentForm = label.closest('form');
 	let currentParam = label.parentElement;
@@ -135,7 +153,6 @@ function swapSingleParam(label) {
 
 function clearUsedParametersList() {
 	let formParams = document.querySelectorAll('#form-params-used .form-group-param');
-	console.log(formParams);
 
 	formParams.forEach((formParamGroup) => {
 		swapSingleParam(formParamGroup.querySelector('label'));
@@ -173,9 +190,9 @@ function loadIntegrationObject() {
 	let params = {};
 	let formParamsUsed = document.querySelector('#form-params-used')
 		.querySelectorAll('.integrator-param');
+	let selectedAppName = document.querySelector('#application-select-input').value;
 	let method = document.querySelector('#method-select-input').value;
 	let baseUrl = document.querySelector('#environment-select-input').value;
-	let basePath = baseUrl.substring(0, baseUrl.lastIndexOf('/')) + '/';
 	let getUrl = baseUrl + '?';
 
 	params['type'] = document.querySelector('#transaction-select-input').value;
@@ -190,53 +207,101 @@ function loadIntegrationObject() {
 
 	saveParamsLocalStorage(params);
 
-	if ("GET" === method) {
-		let queryString = new URLSearchParams();
+	if ('Webpay' === selectedAppName) {
+		document.querySelector('#integration-iframe-loader').src = '';
+		document.querySelector('#integration-iframe-loader').classList.add('d-none');
+		document.querySelector('#NewCenposPlugin').classList.remove('d-none');
+		loadWebpayObject(baseUrl, params);
+	} else {
+		document.querySelector('#NewCenposPlugin').innerHTML = '';
+		document.querySelector('#integration-iframe-loader').classList.remove('d-none');
+		document.querySelector('#NewCenposPlugin').classList.add('d-none');
 
-		for (let key of Object.keys(params)) {
-			let val = paramEncodeValue(key, params[key]);
+		if ("GET" === method) {
+			let queryString = new URLSearchParams();
 
-			// Append each parameter to URL
-			queryString.append(key, val);
+			for (let key of Object.keys(params)) {
+				let val = paramEncodeValue(key, params[key]);
+
+				// Append each parameter to URL
+				queryString.append(key, val);
+			}
+
+			// Update getUrl
+			getUrl = getUrl + queryString.toString();
+
+			// Display the generated URL
+			document.querySelector('#integration-endpoint-input').value = getUrl;
+
+			// Load iframe
+			document.querySelector('#integration-iframe-loader').src = getUrl;
+		} else if ("POST" === method) {
+			let formContent = '';
+			let formFields = '';
+
+			// Display the generated URL
+			document.querySelector("#integration-endpoint-input").value = baseUrl;
+
+			// Clean the post form
+			document.querySelector("#post-form").innerHTML = '';
+
+			// Get new data
+			for (let key of Object.keys(params)) {
+				let val = paramEncodeValue(key, params[key]);
+				formFields += `<input type="hidden" name="${key}" value="${val}" />`;
+			}
+
+			formContent += `<form action="${baseUrl}" method="POST" target="integration-iframe-loader">
+				${formFields}
+				<input type="submit" id="post-form-submit" value="CLICK HERE TO SENT AS POST" />
+			</form>`;
+
+			// Add the new data to DOM
+			document.querySelector("#post-form").innerHTML = formContent;
+
+			// submit form and load iframe
+			document.querySelector("#post-form-submit").click();
 		}
-
-		// Update getUrl
-		getUrl = getUrl + queryString.toString();
-
-		// Display the generated URL
-		document.querySelector('#integration-endpoint-input').value = getUrl;
-
-		// Load iframe
-		document.querySelector('#integration-iframe-loader').src = getUrl;
 	}
+}
 
-	else if ("POST" === method) {
-		let formContent = '';
-		let formFields = '';
+function loadWebpayObject(webpayUrl, webpayParams) {
+	let siteVerifyUrl = webpayUrl + '?app=genericcontroller&action=siteVerify';
+	let siteVerifyData = new URLSearchParams();
 
-		// Display the generated URL
-		document.querySelector("#integration-endpoint-input").value = baseUrl;
+	siteVerifyData.append('secretkey', webpayParams['aeskey']);
+	siteVerifyData.append('merchant', webpayParams['apikey']);
 
-		// Clean the post form
-		document.querySelector("#post-form").innerHTML = '';
+	// Need to confirm what values can be provided on the veryfyingPost
+	//siteVerifyData.append('key', value);
 
-		// Get new data
-		for (let key of Object.keys(params)) {
-			let val = paramEncodeValue(key, params[key]);
-			formFields += `<input type="hidden" name="${key}" value="${val}" />`;
-		}
+	postData(siteVerifyUrl, siteVerifyData)
+		.then(response => {
+			if (0 == response.Result) {
+				let pluginParams = new URLSearchParams();
 
-		formContent += `<form action="${baseUrl}" method="POST" target="integration-iframe-loader">
-			${formFields}
-			<input type="submit" id="post-form-submit" value="CLICK HERE TO SENT AS POST" />
-		</form>`;
+				pluginParams.append('verifyingpost', response.Data);
 
-		// Add the new data to DOM
-		document.querySelector("#post-form").innerHTML = formContent;
+				for (let key of Object.keys(webpayParams)) {
+					if ('apikey' !== key && 'aeskey' !== key) {
+						pluginParams.append(key, webpayParams[key]);
+					}	
+				}
 
-		// submit form and load iframe
-		document.querySelector("#post-form-submit").click();
-	}
+				// The webpay plugin requires jQuery :\
+				$('#NewCenposPlugin').createWebpay({
+					url: webpayUrl,
+					params: pluginParams.toString(),
+					domain: webpayUrl.substring(0, webpayUrl.lastIndexOf('/')),
+					/* width: '800',
+					height: '750',
+					success: CallbackSuccess,
+					cancel: CallbackCancel */
+				});
+			} else {
+				alert(response.Message);
+			}
+		});
 }
 
 function getElementId(elem) {
@@ -254,7 +319,7 @@ async function bootFromJson() {
 			fetch('resources/json/parameters.json').then((response) => response.json()),
 			fetch('resources/json/transactions.json').then((response) => response.json())
 		]);
-	  
+
 		integrator.applications = applications;
 		integrator.parameters = parameters;
 		integrator.transactions = transactions;
@@ -262,10 +327,27 @@ async function bootFromJson() {
 		populateApplicationSelectBox();
 		populateParameterList();
 		retrieveParamsLocalStorage();
-	  }
-	  catch(err) {
+	}
+	catch (err) {
 		console.log(err);
-	  };
+	};
+}
+
+async function postData(url = '', data = '', contentType = 'application/x-www-form-urlencoded') {
+	const response = await fetch(url, {
+		method: 'POST',
+		mode: 'cors',
+		cache: 'no-cache',
+		credentials: 'same-origin',
+		headers: {
+			'Content-Type': contentType,
+		},
+		redirect: 'follow',
+		referrerPolicy: 'no-referrer',
+		body: data.toString()
+	});
+
+	return response.json();
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -332,10 +414,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		if ('application-select-input' === triggerId) {
 			populateEnvironmentSelectBox();
 			populateTransactionSelectBox();
+			populateRequiredParams();
+
+			let selectedAppName = document.querySelector('#application-select-input').value;
+			let methodSelectBox = document.querySelector('#method-select-input');
 
 			mainForm.querySelectorAll('select').forEach((selectBox) => {
 				selectBox.disabled = false;
 			});
+
+			if ('Webpay' === selectedAppName) {
+				methodSelectBox.closest('.form-group').classList.add('d-none');
+			} else {
+				methodSelectBox.closest('.form-group').classList.remove('d-none');
+			}
 		}
 	});
 

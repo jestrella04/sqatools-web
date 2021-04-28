@@ -7,7 +7,7 @@
 		'description' => 'Tool to test CenPOS integrations',
 		'logo' => 'integ.png',
 		'logo_type' => 'image/png',
-		'jquery' => false,
+		'jquery' => true,
 	];
 
 	require '../../resources/views/header.php';
@@ -134,10 +134,8 @@
 				<div class="card mt-2 iframe-container">
 					<div class="card-body">
 						<div id="post-form"></div>
-
-						<div>
-							<iframe id="integration-iframe-loader" name="integration-iframe-loader" src="" frameborder="0"></iframe>
-						</div>
+						<div id="NewCenposPlugin" class="d-none"></div>
+						<iframe id="integration-iframe-loader" name="integration-iframe-loader" src="" frameborder="0"></iframe>
 					</div>
 				</div>
 			</div>
