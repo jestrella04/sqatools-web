@@ -6,8 +6,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/POSIntegration/POSIntegration-HTML5/",
 			"Staging": "https://www4.cenpos.net/POSIntegration-test/POSIntegration-HTML5/",
-			"Dev - Elavon": "https://webtest.cenpos.net/posintegration/posintegration-html5/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/html5-apps/dev/pos-integration-ws/"
+			"Dev": "https://webtest.cenpos.net/posintegration/posintegration-html5/"
 		}
 	},
 	"POS Vue": {
@@ -17,7 +16,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/spa/app/pos/",
 			"Staging": "https://www4.cenpos.net/spa-test/app/pos/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/html5-apps/dev/spa-apps/app/pos/"
+			"Dev": "https://webtest.cenpos.net/spa/app/pos/"
 		}
 	},
 	"Cashiering": {
@@ -27,8 +26,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/cashiering-html5/",
 			"Staging": "https://www4.cenpos.net/cashiering-html5-test/",
-			"Dev - Elavon": "https://webtest.cenpos.net/Cashiering-html5/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/html5-apps/dev/cashiering/"
+			"Dev": "https://webtest.cenpos.net/Cashiering-html5/"
 		}
 	},
 	"POS Reports Legacy": {
@@ -38,8 +36,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/posintegration/posintegration-html5-reports/",
 			"Staging": "https://www4.cenpos.net/posintegration-test/posintegration-html5-reports/",
-			"Dev - Elavon": "https://webtest.cenpos.net/posintegration/posintegration-html5-reports/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/html5-apps/dev/pos-reports/"
+			"Dev": "https://webtest.cenpos.net/posintegration/posintegration-html5-reports/"
 		}
 	},
 	"POS Reports Vue": {
@@ -49,7 +46,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/spa/app/pos-reports/",
 			"Staging": "https://www4.cenpos.net/spa-test/app/pos/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/html5-apps/dev/spa-apps/app/pos-reports/"
+			"Dev": "https://webtest.cenpos.net/spa/app/pos-reports/"
 		}
 	},
 	"Bridge API": {
@@ -58,7 +55,7 @@
 		"require": [],
 		"url": {
 			"Prod": "https://www4.cenpos.net/spa/app/bridge-api/",
-			"Dev": "https://test.cenpos.net:7443/html5-apps/dev/spa-apps/app/bridge-api/"
+			"Dev": "https://webtest.cenpos.net/spa/app/bridge-api/"
 		}
 	},
 	"Webpay": {
@@ -68,8 +65,7 @@
 		"url": {
 			"Production": "https://www4.cenpos.net/webpay/v7/html5/",
 			"Staging": "https://www4.cenpos.net/webpaytest/v7/html5/",
-			"Dev - Elavon": "https://webtest.cenpos.net/webpay/prod/",
-			"Dev - Legacy": "https://test.cenpos.net:7443/webpaypasswordless/"
+			"Dev": "https://webtest.cenpos.net/webpay/prod/"
 		}
 	}
 }
