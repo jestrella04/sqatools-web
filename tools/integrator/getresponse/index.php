@@ -10,11 +10,6 @@
 			'jquery' => false,
 		];
 
-		require '../../../resources/views/header.php';
-	?>
-
-	<body id="app-analyzer">
-		<?php		
 		// Get data structure from URL
 		$path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], '/') : false;
 		$mod = 'parse';
@@ -23,6 +18,16 @@
 			$path_parts = explode('/', $path);
 			$mod = $path_parts[0];
 		}
+
+		if ('parse' === $mod) {
+			$app['id'] = 'response-parser';
+		}
+
+		require '../../../resources/views/header.php';
+	?>
+
+	<body id="app-analyzer">
+		<?php		
 		
 		switch ($mod) {
 			case 'parse':

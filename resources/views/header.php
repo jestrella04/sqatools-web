@@ -1,6 +1,7 @@
 <?php
 if ($app['id'] === 'index') $basePath = '.';
 elseif ($app['id'] === 'response-analizer') $basePath = '../../../../';
+elseif ($app['id'] === 'response-parser') $basePath = '../../../';
 else $basePath = '../../';
 ?>
 <head>
