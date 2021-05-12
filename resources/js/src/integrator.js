@@ -74,6 +74,8 @@ function populateEnvironmentSelectBox() {
 
 			selectBox.insertAdjacentHTML('beforeend', `<option value="${url}">${name}</option>`);
 		}
+
+		selectBox.insertAdjacentHTML('beforeend', '<option value="custom">Custom</option>');
 	}
 }
 
@@ -191,12 +193,22 @@ function loadIntegrationObject() {
 	let formParamsUsed = document.querySelector('#form-params-used')
 		.querySelectorAll('.integrator-param');
 	let selectedAppName = document.querySelector('#application-select-input').value;
+	let selectedEnvironment = document.querySelector('#environment-select-input').value;
 	let method = document.querySelector('#method-select-input').value;
-	let baseUrl = document.querySelector('#environment-select-input').value;
+	let baseUrl = '';
+
+	if ('custom' === selectedEnvironment) {
+		baseUrl = document.querySelector('#endpoint-select-input').value;
+	} else {
+		baseUrl = document.querySelector('#environment-select-input').value;
+	}
+	
 	let getUrl = baseUrl + '?';
 
-	params['type'] = document.querySelector('#transaction-select-input').value;
-
+	if ('SWP Cards' !== selectedAppName && 'SWP Checks' !== selectedAppName) {
+		params['type'] = document.querySelector('#transaction-select-input').value;
+	}
+	
 	formParamsUsed.forEach((param) => {
 		let id = getElementId(param);
 		let name = id.substring(id.indexOf('-') + 1);
@@ -207,16 +219,26 @@ function loadIntegrationObject() {
 
 	saveParamsLocalStorage(params);
 
-	if ('Webpay' === selectedAppName) {
+	document.querySelector('#NewCenposPlugin').innerHTML = '';
+	document.querySelector('#integration-iframe-loader').classList.remove('d-none');
+	document.querySelector('#NewCenposPlugin').classList.add('d-none');
+	document.querySelector('#swp-btns').classList.add('d-none');
+
+	if ('Webpay' === selectedAppName || selectedAppName.includes('SWP')) {
 		document.querySelector('#integration-iframe-loader').src = '';
 		document.querySelector('#integration-iframe-loader').classList.add('d-none');
 		document.querySelector('#NewCenposPlugin').classList.remove('d-none');
 		loadWebpayObject(baseUrl, params);
-	} else {
-		document.querySelector('#NewCenposPlugin').innerHTML = '';
-		document.querySelector('#integration-iframe-loader').classList.remove('d-none');
-		document.querySelector('#NewCenposPlugin').classList.add('d-none');
 
+		let btnsContainer = document.querySelector('#swp-btns');
+
+		// Now display the buttons (if needed)
+		if (selectedAppName.includes('SWP')) {
+			btnsContainer.classList.remove('d-none');
+		} else {
+			btnsContainer.classList.add('d-none');
+		}
+	} else {
 		if ("GET" === method) {
 			let queryString = new URLSearchParams();
 
@@ -269,11 +291,42 @@ function loadWebpayObject(webpayUrl, webpayParams) {
 	let siteVerifyUrl = webpayUrl + '?app=genericcontroller&action=siteVerify';
 	let siteVerifyData = new URLSearchParams();
 
-	siteVerifyData.append('secretkey', webpayParams['aeskey']);
-	siteVerifyData.append('merchant', webpayParams['apikey']);
+	// Required data for siteVerify
+	if (webpayParams.hasOwnProperty('aeskey')) {
+		siteVerifyData.append('secretkey', webpayParams['aeskey']);
+		delete webpayParams.aeskey;
+	}
 
-	// Need to confirm what values can be provided on the veryfyingPost
-	//siteVerifyData.append('key', value);
+	if (webpayParams.hasOwnProperty('apikey')) {
+		siteVerifyData.append('merchant', webpayParams['apikey']);
+		delete webpayParams.apikey;
+	}
+
+	// Some params need to be sent in the initial siteVerify request
+	if (webpayParams.hasOwnProperty('email')) {
+		siteVerifyData.append('email', value);
+		delete webpayParams.email;
+	}
+
+	if (webpayParams.hasOwnProperty('customercode')) {
+		siteVerifyData.append('customercode', value); 
+		delete webpayParams.customercode;
+	}
+
+	if (webpayParams.hasOwnProperty('amount')) {
+		siteVerifyData.append('amount', value); 
+		delete webpayParams.amount;
+	}
+
+	if (webpayParams.hasOwnProperty('ip')) {
+		siteVerifyData.append('ip', value); 
+		delete webpayParams.ip;
+	}
+
+	if (webpayParams.hasOwnProperty('isrecaptcha')) {
+		siteVerifyData.append('isrecaptcha', value); 
+		delete webpayParams.isrecaptcha;
+	}
 
 	postData(siteVerifyUrl, siteVerifyData)
 		.then(response => {
@@ -283,9 +336,7 @@ function loadWebpayObject(webpayUrl, webpayParams) {
 				pluginParams.append('verifyingpost', response.Data);
 
 				for (let key of Object.keys(webpayParams)) {
-					if ('apikey' !== key && 'aeskey' !== key) {
-						pluginParams.append(key, webpayParams[key]);
-					}	
+					pluginParams.append(key, webpayParams[key]);
 				}
 
 				// The webpay plugin requires jQuery :\
@@ -294,12 +345,12 @@ function loadWebpayObject(webpayUrl, webpayParams) {
 					params: pluginParams.toString(),
 					domain: webpayUrl.substring(0, webpayUrl.lastIndexOf('/')),
 					/* width: '800',
-					height: '750',
-					success: CallbackSuccess,
-					cancel: CallbackCancel */
+					height: '750',*/
+					success: getInlineResponse,
+					cancel: getInlineResponse
 				});
 			} else {
-				alert(response.Message);
+				console.error(response.Message);
 			}
 		});
 }
@@ -310,6 +361,25 @@ function getElementId(elem) {
 	}
 
 	return false;
+}
+
+function getInlineResponse(data) {
+	let responseData = `<strong>STRING</strong>
+	<hr class="hr-xs">
+	<pre>
+		<code>${JSON.stringify(data, undefined, 2)}</code>
+	</pre>`;
+
+	let response = document.querySelector('#integration-inline-response');
+	let iframe = document.querySelector('.iframe-container');
+	let iframeLoader = document.querySelector('#integration-iframe-loader');
+	let swpBtns = document.querySelector('#swp-btns');
+
+	response.innerHTML = responseData;
+	response.closest('.card').classList.remove('d-none');
+	iframe.classList.add('d-none');
+	swpBtns.classList.add('d-none');
+	iframeLoader.src = '';
 }
 
 async function bootFromJson() {
@@ -390,6 +460,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 			loadIntegrationObject();
 		}
+
+		if ('swp-submit' === triggerId) {
+			// Webpay plugin requires jQuery :\
+			$('#NewCenposPlugin').submitAction();
+		}
 	});
 
 	document.addEventListener('dblclick', (event) => {
@@ -418,6 +493,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 			let selectedAppName = document.querySelector('#application-select-input').value;
 			let methodSelectBox = document.querySelector('#method-select-input');
+			let trxSelectBox = document.querySelector('#transaction-select-input')
 
 			mainForm.querySelectorAll('select').forEach((selectBox) => {
 				selectBox.disabled = false;
@@ -425,8 +501,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 			if ('Webpay' === selectedAppName) {
 				methodSelectBox.closest('.form-group').classList.add('d-none');
+				trxSelectBox.closest('.form-group').classList.remove('d-none');
+			} else if ('SWP Cards' === selectedAppName || 'SWP Checks' === selectedAppName) {
+				methodSelectBox.closest('.form-group').classList.add('d-none');
+				trxSelectBox.closest('.form-group').classList.add('d-none');
 			} else {
 				methodSelectBox.closest('.form-group').classList.remove('d-none');
+				trxSelectBox.closest('.form-group').classList.remove('d-none');
+			}
+		}
+
+		if ('environment-select-input' === triggerId) {
+			let endpointFormGroup = document.querySelector('#endpoint-select-input').closest('.form-group');
+
+			if ('custom' === trigger.value) {
+				endpointFormGroup.classList.remove('d-none');
+			} else {
+				endpointFormGroup.classList.add('d-none');
 			}
 		}
 	});
@@ -434,20 +525,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	window.addEventListener('message', function (event) {
 		// Proceed if the posted message is the CenPOSResponse message
 		if (event.data && event.data.type === 'CenPOSResponse') {
-			let responseData = `<strong>STRING</strong>
-			<hr class="hr-xs">
-			<pre>
-				<code>${JSON.stringify(event.data.data, undefined, 2)}</code>
-			</pre>`;
-
-			let response = document.querySelector('#integration-inline-response');
-			let iframe = document.querySelector('.iframe-container');
-			let iframeLoader = document.querySelector('#integration-iframe-loader');
-
-			response.innerHTML = responseData;
-			response.closest('.card').classList.remove('d-none');
-			iframe.classList.add('d-none');
-			iframeLoader.src = '';
+			getInlineResponse(event.data.data);
 		}
 	}, false);
 

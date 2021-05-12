@@ -44,6 +44,14 @@
 						</div>
 					</div>
 
+					<div class="form-group row d-none">
+						<label for="endpoint-select-input" class="col-sm-4 col-form-label col-form-label-sm">Endpoint:</label>
+
+						<div class="col-sm-8">
+							<input id="endpoint-select-input" type="text" class="form-control form-control-sm">
+						</div>
+					</div>
+
 					<div class="form-group row">
 						<label for="method-select-input" class="col-sm-4 col-form-label col-form-label-sm">Method:</label>
 
@@ -137,6 +145,11 @@
 						<div id="NewCenposPlugin" class="d-none"></div>
 						<iframe id="integration-iframe-loader" name="integration-iframe-loader" src="" frameborder="0"></iframe>
 					</div>
+				</div>
+
+				<div id="swp-btns" class="mt-2 d-none">
+					<button id="swp-submit" class="btn btn-success">SUBMIT</button>
+					<button id="swp-cancel" class="btn btn-danger" disabled>CANCEL</button>
 				</div>
 			</div>
 		</div>

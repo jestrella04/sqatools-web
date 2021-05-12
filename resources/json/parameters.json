@@ -8,6 +8,11 @@
 	"address": [
 		""
 	],
+	"addressdif": [
+		"true",
+		"false",
+		""
+	],
 	"aeskey": [
 		""
 	],
@@ -21,6 +26,11 @@
 		""
 	],
 	"authheader": [
+		""
+	],
+	"autologin": [
+		"true",
+		"false",
 		""
 	],
 	"autorentaldata": [
@@ -40,6 +50,11 @@
 		""
 	],
 	"centralized": [
+		"true",
+		"false",
+		""
+	],
+	"check": [
 		"true",
 		"false",
 		""
@@ -83,6 +98,31 @@
 	"ipterminal": [
 		""
 	],
+	"ischecktype": [
+		"true",
+		"false",
+		""
+	],
+	"iscvv": [
+		"true",
+		"false",
+		""
+	],
+	"isemail": [
+		"true",
+		"false",
+		""
+	],
+	"ispresta": [
+		"true",
+		"false",
+		""
+	],
+	"isrecaptcha": [
+		"true",
+		"false",
+		""
+	],
 	"lang": [
 		""
 	],
@@ -108,6 +148,11 @@
 		"false",
 		""
 	],
+	"onlycheck": [
+		"true",
+		"false",
+		""
+	],
 	"operation": [
 		"delete",
 		"modify",
@@ -121,6 +166,11 @@
 	"password": [
 		""
 	],
+	"paypal": [
+		"true",
+		"false",
+		""
+	],
 	"phone": [
 		""
 	],
@@ -132,6 +182,11 @@
 	"postresponse": [
 		"true",
 		"false",
+		""
+	],
+	"recaptchaversion": [
+		"v2",
+		"v3",
 		""
 	],
 	"receipts": [
@@ -155,10 +210,20 @@
 		"soap",
 		""
 	],
+	"restful": [
+		"true",
+		"false",
+		""
+	],
 	"scale": [
 		""
 	],
 	"sessionid": [
+		""
+	],
+	"sessiontoken": [
+		"true",
+		"false",
 		""
 	],
 	"splittender": [
@@ -188,6 +253,9 @@
 	"urlcancel": [
 		""
 	],
+	"urlpaypal": [
+		""
+	],
 	"urlresponse": [
 		""
 	],
@@ -206,6 +274,9 @@
 		""
 	],
 	"zip": [
+		""
+	],
+	"zipcode": [
 		""
 	]
 }

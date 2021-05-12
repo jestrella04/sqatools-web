@@ -67,5 +67,25 @@
 			"Staging": "https://www4.cenpos.net/webpaytest/v7/html5/",
 			"Dev": "https://webtest.cenpos.net/webpay/prod/"
 		}
+	},
+	"SWP Cards": {
+		"desc": "",
+		"type": "webpay",
+		"require": ["apikey", "aeskey"],
+		"url": {
+			"Production": "https://www4.cenpos.net/simplewebpay/cards/",
+			"Staging": "https://www4.cenpos.net/simplewebpay-test/cards/",
+			"Dev": "https://webtest.cenpos.net/simplewebpay/cards/"
+		}
+	},
+	"SWP Checks": {
+		"desc": "",
+		"type": "webpay",
+		"require": ["apikey", "aeskey"],
+		"url": {
+			"Production": "https://www4.cenpos.net/simplewebpay/checks/",
+			"Staging": "https://www4.cenpos.net/simplewebpay-test/checks/",
+			"Dev": "https://webtest.cenpos.net/simplewebpay/checks/"
+		}
 	}
 }
