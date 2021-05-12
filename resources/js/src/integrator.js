@@ -350,7 +350,7 @@ function loadWebpayObject(webpayUrl, webpayParams) {
 					cancel: getInlineResponse
 				});
 			} else {
-				console.error(response.Message);
+				getInlineResponse(response);
 			}
 		});
 }
