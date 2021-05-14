@@ -304,27 +304,27 @@ function loadWebpayObject(webpayUrl, webpayParams) {
 
 	// Some params need to be sent in the initial siteVerify request
 	if (webpayParams.hasOwnProperty('email')) {
-		siteVerifyData.append('email', value);
+		siteVerifyData.append('email', webpayParams['email']);
 		delete webpayParams.email;
 	}
 
 	if (webpayParams.hasOwnProperty('customercode')) {
-		siteVerifyData.append('customercode', value); 
+		siteVerifyData.append('customercode', webpayParams['customercode']); 
 		delete webpayParams.customercode;
 	}
 
 	if (webpayParams.hasOwnProperty('amount')) {
-		siteVerifyData.append('amount', value); 
+		siteVerifyData.append('amount', webpayParams['amount']); 
 		delete webpayParams.amount;
 	}
 
 	if (webpayParams.hasOwnProperty('ip')) {
-		siteVerifyData.append('ip', value); 
+		siteVerifyData.append('ip', webpayParams['amount']); 
 		delete webpayParams.ip;
 	}
 
 	if (webpayParams.hasOwnProperty('isrecaptcha')) {
-		siteVerifyData.append('isrecaptcha', value); 
+		siteVerifyData.append('isrecaptcha', webpayParams['isrecaptcha']); 
 		delete webpayParams.isrecaptcha;
 	}
 
@@ -366,9 +366,7 @@ function getElementId(elem) {
 function getInlineResponse(data) {
 	let responseData = `<strong>STRING</strong>
 	<hr class="hr-xs">
-	<pre>
-		<code>${JSON.stringify(data, undefined, 2)}</code>
-	</pre>`;
+	<pre><code>${JSON.stringify(data, undefined, 2)}</code></pre>`;
 
 	let response = document.querySelector('#integration-inline-response');
 	let iframe = document.querySelector('.iframe-container');
